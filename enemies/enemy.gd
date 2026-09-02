@@ -1,10 +1,10 @@
 extends CharacterBody2D
 
-const SPEED = 50.0
+const SPEED = 70.0
 const FOLLOW_RANGE = 70.0
 const ATTACK_RANGE = 20.0
 const COOLDOWN = 1.0
-const DAMAGE = 10.0
+@export var attack_damage = 10.0
 var player: Node2D
 var attack_timer: float = 0.0
 
@@ -41,7 +41,7 @@ func _physics_process(delta: float) -> void:
 func attack() -> void:
 	var damage := DamageSystem.new()
 		
-	damage.amount = DAMAGE
+	damage.amount = attack_damage
 	damage.damage_type = DamageSystem.DamageType.PHYSICAL
 		
 	var health_system = player.get_node("HealthSystem")

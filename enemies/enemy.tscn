@@ -31,7 +31,7 @@ animations = [{
 radius = 9.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_flmph"]
-radius = 36.013885
+radius = 21.0
 
 [node name="Enemy" type="CharacterBody2D" unique_id=651092779]
 texture_filter = 1
@@ -49,7 +49,7 @@ shape = SubResource("CircleShape2D_5lrfx")
 [node name="AttackArea" type="Area2D" parent="." unique_id=1001347720]
 collision_layer = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=357707230]
+[node name="AttackRange" type="CollisionShape2D" parent="AttackArea" unique_id=357707230]
 shape = SubResource("CircleShape2D_flmph")
 
 [node name="HealthSystem" type="Node" parent="." unique_id=2073328439]
