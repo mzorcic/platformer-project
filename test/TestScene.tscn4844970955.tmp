@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://dmkyporubikft"]
 
 [ext_resource type="PackedScene" uid="uid://blqulatjqg8qa" path="res://characters/player.tscn" id="2_axyd5"]
-[ext_resource type="PackedScene" uid="uid://da6pfh3ytxf5m" path="res://enemies/enemy.tscn" id="2_k0ggn"]
+[ext_resource type="PackedScene" uid="uid://da6pfh3ytxf5m" path="res://enemies/character_body_2d.tscn" id="2_k0ggn"]
 
 [sub_resource type="GDScript" id="GDScript_axyd5"]
 script/source = "extends Node2D
@@ -291,5 +291,5 @@ tile_set = SubResource("TileSet_5lrfx")
 [node name="Player" parent="." unique_id=1662639462 instance=ExtResource("2_axyd5")]
 position = Vector2(86, 42)
 
-[node name="Enemy" parent="." unique_id=651092779 instance=ExtResource("2_k0ggn")]
-position = Vector2(28, 123)
+[node name="CharacterBody2D" parent="." unique_id=651092779 instance=ExtResource("2_k0ggn")]
+position = Vector2(121, 100)

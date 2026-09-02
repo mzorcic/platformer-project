@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://da6pfh3ytxf5m"]
+
+[ext_resource type="Script" uid="uid://7ikyb0msjjor" path="res://enemies/enemy.gd" id="1_7frlh"]
+[ext_resource type="Texture2D" uid="uid://d227qr27j5v6t" path="res://test/Assets/Sprout Lands - Sprites - Basic pack/Characters/Basic Charakter Spritesheet.png" id="1_74b0u"]
+[ext_resource type="Script" uid="uid://7ufwx0k4tdy4" path="res://scripts/HealthSystem.gd" id="3_orwns"]
+[ext_resource type="Script" uid="uid://c1744eprwdul5" path="res://scripts/ResistanceSystem.gd" id="4_07tka"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_74b0u"]
+atlas = ExtResource("1_74b0u")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gbsle"]
+atlas = ExtResource("1_74b0u")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_flmph"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_74b0u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gbsle")
+}],
+"loop": 1,
+"name": &"idle_front",
+"speed": 3.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5lrfx"]
+radius = 9.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_flmph"]
+radius = 36.013885
+
+[node name="Enemy" type="CharacterBody2D" unique_id=651092779]
+texture_filter = 1
+collision_layer = 2
+script = ExtResource("1_7frlh")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=866628349]
+sprite_frames = SubResource("SpriteFrames_flmph")
+animation = &"idle_front"
+frame_progress = 0.33373892
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=162652672]
+shape = SubResource("CircleShape2D_5lrfx")
+
+[node name="AttackArea" type="Area2D" parent="." unique_id=1001347720]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=357707230]
+shape = SubResource("CircleShape2D_flmph")
+
+[node name="HealthSystem" type="Node" parent="." unique_id=2073328439]
+script = ExtResource("3_orwns")
+max_health = 40.0
+
+[node name="ResistanceSystem" type="Node" parent="." unique_id=201224849]
+script = ExtResource("4_07tka")
+
+[connection signal="died" from="HealthSystem" to="." method="_on_died"]

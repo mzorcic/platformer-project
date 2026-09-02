@@ -290,6 +290,7 @@ tile_set = SubResource("TileSet_5lrfx")
 
 [node name="Player" parent="." unique_id=1662639462 instance=ExtResource("2_axyd5")]
 position = Vector2(86, 42)
+max_health = 100.0
 
 [node name="Enemy" parent="." unique_id=651092779 instance=ExtResource("2_k0ggn")]
-position = Vector2(28, 123)
+position = Vector2(28, 131)

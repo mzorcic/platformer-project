@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://cvricnak27g7d"]
+
+[ext_resource type="Script" uid="uid://d3e8q4lwpgpco" path="res://screens/died_scene.gd" id="1_jyk0b"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_5lrfx"]
+font_size = 60
+
+[node name="DiedScene" type="Control" unique_id=1886659469]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jyk0b")
+
+[node name="Background" type="ColorRect" parent="." unique_id=237575418]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.27058825, 0.27058825, 0.27058825, 1)
+
+[node name="Died" type="Label" parent="." unique_id=166711469]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -140.5
+offset_top = 86.0
+offset_right = 141.5
+offset_bottom = 169.0
+grow_horizontal = 2
+text = "YOU DIED"
+label_settings = SubResource("LabelSettings_5lrfx")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=559823157]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -68.75
+offset_top = -33.0
+offset_right = 68.75
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RespawnButton" type="Button" parent="VBoxContainer" unique_id=181709027]
+layout_mode = 2
+text = "Respawn"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer" unique_id=110845838]
+layout_mode = 2
+text = "Quit"
+
+[connection signal="pressed" from="VBoxContainer/RespawnButton" to="." method="_on_respawn_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
