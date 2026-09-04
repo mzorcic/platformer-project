@@ -1,9 +1,8 @@
 extends CharacterBody2D
 
 const SPEED = 70.0
-const FOLLOW_RANGE = 70.0
-const ATTACK_RANGE = 20.0
-const COOLDOWN = 1.0
+const FOLLOW_RANGE = 50.0
+const ATTACK_COOLDOWN = 1.0
 @export var attack_damage = 10.0
 var player: Node2D
 var attack_timer: float = 0.0
@@ -12,7 +11,6 @@ var attack_timer: float = 0.0
 func _ready() -> void:
 	add_to_group("enemy")
 	player = get_tree().get_first_node_in_group("player")
-
 
 
 func _physics_process(delta: float) -> void:
@@ -31,21 +29,25 @@ func _physics_process(delta: float) -> void:
 		velocity = Vector2.ZERO
 	move_and_slide()
 	
-	if distance <= ATTACK_RANGE:
-		velocity = Vector2.ZERO
-		if attack_timer <= 0.0:
-			attack()
-			attack_timer = COOLDOWN
+	if attack_timer <= 0.0:
+		attack()
+		attack_timer = ATTACK_COOLDOWN
 
 
 func attack() -> void:
-	var damage := DamageSystem.new()
+	var bodies: Array[Node2D] = $AttackArea.get_overlapping_bodies()
+	
+	for body in bodies:
+		if body.is_in_group("player"):
+			var damage := DamageSystem.new()
 		
-	damage.amount = attack_damage
-	damage.damage_type = DamageSystem.DamageType.PHYSICAL
+			damage.amount = attack_damage
+			damage.damage_type = DamageSystem.DamageType.PHYSICAL
 		
-	var health_system = player.get_node("HealthSystem")
-	health_system.take_damage(damage)
+			var health_system = body.get_node_or_null("HealthSystem")
+			if health_system == null:
+				continue
+			health_system.take_damage(damage)
 
 
 func _on_died() -> void:

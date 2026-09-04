@@ -2,7 +2,6 @@ extends CharacterBody2D
 
 const SPEED = 100.0
 
-
 func _ready() -> void:
 	add_to_group("player")
 
