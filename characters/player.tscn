@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://c3kw5pev6ofxl" path="res://scripts/MoneySystem.gd" id="1_x0jl3"]
 [ext_resource type="Script" uid="uid://7ufwx0k4tdy4" path="res://scripts/HealthSystem.gd" id="3_evndh"]
 [ext_resource type="Script" uid="uid://c1744eprwdul5" path="res://scripts/ResistanceSystem.gd" id="4_h1q25"]
+[ext_resource type="Script" uid="uid://djq5bkys5j4t8" path="res://scripts/ManaSystem.gd" id="6_h1q25"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7e3xn"]
 atlas = ExtResource("1_g1dw6")
@@ -163,12 +164,14 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5lrfx"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_flmph"]
-radius = 23.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_75yoc"]
+radius = 20.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1662639462]
 texture_filter = 1
 script = ExtResource("1_tory2")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1410383498]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=459582142]
 position = Vector2(0, 2)
@@ -183,7 +186,11 @@ shape = SubResource("CircleShape2D_5lrfx")
 collision_mask = 2
 
 [node name="AttackRange" type="CollisionShape2D" parent="AttackArea" unique_id=1947896160]
-shape = SubResource("CircleShape2D_flmph")
+shape = SubResource("CircleShape2D_75yoc")
+debug_color = Color(1.540184e-06, 0.6950941, 0.8118576, 0.41960785)
+
+[node name="AttackCone" type="Polygon2D" parent="AttackArea" unique_id=1662650756]
+color = Color(0.7019608, 0, 0.1254902, 0.77254903)
 
 [node name="HealthSystem" type="Node" parent="." unique_id=667070118]
 script = ExtResource("3_evndh")
@@ -193,5 +200,8 @@ script = ExtResource("4_h1q25")
 
 [node name="MoneySystem" type="Node" parent="." unique_id=1238272985]
 script = ExtResource("1_x0jl3")
+
+[node name="ManaSystem" type="Node" parent="." unique_id=1945551586]
+script = ExtResource("6_h1q25")
 
 [connection signal="died" from="HealthSystem" to="." method="_on_died"]

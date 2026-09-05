@@ -8,7 +8,7 @@
 [node name="HUD" type="CanvasLayer" unique_id=91535387]
 script = ExtResource("1_dvphu")
 
-[node name="Control" type="Control" parent="." unique_id=153263189]
+[node name="HUD" type="Control" parent="." unique_id=153263189]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -16,55 +16,98 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Stats" type="VBoxContainer" parent="Control" unique_id=765201112]
+[node name="Stats" type="VBoxContainer" parent="HUD" unique_id=765201112]
 layout_mode = 0
 offset_left = 5.0
 offset_top = 10.0
 offset_right = 238.0
 offset_bottom = 81.0
 
-[node name="HealthBar" type="ProgressBar" parent="Control/Stats" unique_id=1434999127]
+[node name="HealthBar" type="ProgressBar" parent="HUD/Stats" unique_id=1434999127]
 layout_mode = 2
 
-[node name="MoneyLabel" type="Label" parent="Control/Stats" unique_id=1927718302]
+[node name="ManaBar" type="ProgressBar" parent="HUD/Stats" unique_id=86735701]
 layout_mode = 2
-text = "600$"
-label_settings = SubResource("LabelSettings_flmph")
 
-[node name="InventoryBar" type="VBoxContainer" parent="Control" unique_id=428927743]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
+[node name="Inventory" type="Control" parent="." unique_id=1007313739]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -69.0
-offset_top = -202.0
-offset_right = -5.0
-offset_bottom = 202.0
-grow_horizontal = 0
+anchor_bottom = 1.0
+grow_horizontal = 2
 grow_vertical = 2
 
-[node name="InventorySlot1" parent="Control/InventoryBar" unique_id=1878209895 instance=ExtResource("1_o3vs4")]
-custom_minimum_size = Vector2(64, 64)
+[node name="GridContainer" type="GridContainer" parent="Inventory" unique_id=1949954275]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 5.0
+offset_top = -202.0
+offset_right = 205.0
+offset_bottom = 202.0
+grow_vertical = 2
+columns = 3
+
+[node name="InventorySlot1" parent="Inventory/GridContainer" unique_id=721270200 instance=ExtResource("1_o3vs4")]
 layout_mode = 2
 
-[node name="InventorySlot2" parent="Control/InventoryBar" unique_id=1078500755 instance=ExtResource("1_o3vs4")]
-custom_minimum_size = Vector2(64, 64)
+[node name="InventorySlot2" parent="Inventory/GridContainer" unique_id=606434314 instance=ExtResource("1_o3vs4")]
 layout_mode = 2
 
-[node name="InventorySlot3" parent="Control/InventoryBar" unique_id=829258010 instance=ExtResource("1_o3vs4")]
-custom_minimum_size = Vector2(64, 64)
+[node name="InventorySlot3" parent="Inventory/GridContainer" unique_id=1545351628 instance=ExtResource("1_o3vs4")]
 layout_mode = 2
 
-[node name="InventorySlot4" parent="Control/InventoryBar" unique_id=612833825 instance=ExtResource("1_o3vs4")]
-custom_minimum_size = Vector2(64, 64)
+[node name="InventorySlot4" parent="Inventory/GridContainer" unique_id=925443703 instance=ExtResource("1_o3vs4")]
 layout_mode = 2
 
-[node name="InventorySlot5" parent="Control/InventoryBar" unique_id=2004920664 instance=ExtResource("1_o3vs4")]
-custom_minimum_size = Vector2(64, 64)
+[node name="InventorySlot5" parent="Inventory/GridContainer" unique_id=54182071 instance=ExtResource("1_o3vs4")]
 layout_mode = 2
 
-[node name="InventorySlot6" parent="Control/InventoryBar" unique_id=1799424567 instance=ExtResource("1_o3vs4")]
-custom_minimum_size = Vector2(64, 64)
+[node name="InventorySlot6" parent="Inventory/GridContainer" unique_id=359169747 instance=ExtResource("1_o3vs4")]
 layout_mode = 2
+
+[node name="InventorySlot7" parent="Inventory/GridContainer" unique_id=1436037222 instance=ExtResource("1_o3vs4")]
+layout_mode = 2
+
+[node name="InventorySlot8" parent="Inventory/GridContainer" unique_id=1614039012 instance=ExtResource("1_o3vs4")]
+layout_mode = 2
+
+[node name="InventorySlot9" parent="Inventory/GridContainer" unique_id=643000486 instance=ExtResource("1_o3vs4")]
+layout_mode = 2
+
+[node name="InventorySlot10" parent="Inventory/GridContainer" unique_id=105246275 instance=ExtResource("1_o3vs4")]
+layout_mode = 2
+
+[node name="InventorySlot11" parent="Inventory/GridContainer" unique_id=504539296 instance=ExtResource("1_o3vs4")]
+layout_mode = 2
+
+[node name="InventorySlot12" parent="Inventory/GridContainer" unique_id=20786245 instance=ExtResource("1_o3vs4")]
+layout_mode = 2
+
+[node name="InventorySlot13" parent="Inventory/GridContainer" unique_id=263814760 instance=ExtResource("1_o3vs4")]
+layout_mode = 2
+
+[node name="InventorySlot14" parent="Inventory/GridContainer" unique_id=2006656782 instance=ExtResource("1_o3vs4")]
+layout_mode = 2
+
+[node name="InventorySlot15" parent="Inventory/GridContainer" unique_id=1319507334 instance=ExtResource("1_o3vs4")]
+layout_mode = 2
+
+[node name="InventorySlot16" parent="Inventory/GridContainer" unique_id=972420116 instance=ExtResource("1_o3vs4")]
+layout_mode = 2
+
+[node name="InventorySlot17" parent="Inventory/GridContainer" unique_id=1136952222 instance=ExtResource("1_o3vs4")]
+layout_mode = 2
+
+[node name="InventorySlot18" parent="Inventory/GridContainer" unique_id=443410646 instance=ExtResource("1_o3vs4")]
+layout_mode = 2
+
+[node name="MoneyLabel" type="Label" parent="Inventory" unique_id=1927718302]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 6.0
+offset_right = 238.0
+offset_bottom = 29.0
+text = "Money"
+label_settings = SubResource("LabelSettings_flmph")
