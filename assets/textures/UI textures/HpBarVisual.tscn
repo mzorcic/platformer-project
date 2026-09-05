@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://bo5plouq4bs6b"]
+
+[ext_resource type="Script" uid="uid://bgfctapbinpn1" path="res://test/health_bar_visual.gd" id="1_nw4d1"]
+[ext_resource type="Texture2D" uid="uid://lckre5fpx0ue" path="res://test/Assets/CustomAssets/UI/blackBar.png" id="2_u51vc"]
+[ext_resource type="Texture2D" uid="uid://dvncep2bmeflf" path="res://test/Assets/CustomAssets/UI/redBar.png" id="3_yrbjn"]
+[ext_resource type="Texture2D" uid="uid://cchwwk3wuuyr4" path="res://test/Assets/CustomAssets/UI/greenBar.png" id="4_s15vl"]
+[ext_resource type="Texture2D" uid="uid://be2in18xm3600" path="res://test/Assets/CustomAssets/UI/healthBar_1.png" id="5_1frmo"]
+
+[sub_resource type="FontVariation" id="FontVariation_7u286"]
+variation_embolden = 0.33
+
+[node name="HpBarVisual" type="Control" unique_id=249998197]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -853.0
+offset_bottom = -480.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nw4d1")
+
+[node name="FillContainer" type="Control" parent="." unique_id=399502672]
+anchors_preset = 0
+offset_left = 130.0
+offset_top = 100.0
+offset_right = 386.0
+offset_bottom = 118.0
+
+[node name="BlackBg" type="TextureRect" parent="FillContainer" unique_id=2135108685]
+clip_children = 1
+texture_filter = 1
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 18.0
+texture = ExtResource("2_u51vc")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="RedBar" type="TextureRect" parent="FillContainer/BlackBg" unique_id=1090536073]
+texture_filter = 1
+layout_mode = 1
+offset_right = 256.0
+offset_bottom = 18.0
+texture = ExtResource("3_yrbjn")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="GreenBar" type="TextureRect" parent="FillContainer/BlackBg" unique_id=1444888154]
+texture_filter = 1
+layout_mode = 1
+offset_right = 256.0
+offset_bottom = 18.0
+texture = ExtResource("4_s15vl")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Border" type="TextureRect" parent="." unique_id=963436622]
+layout_mode = 0
+offset_left = 141.0
+offset_top = 5.0
+offset_right = 397.0
+offset_bottom = 261.0
+texture = ExtResource("5_1frmo")
+
+[node name="HpNumber" type="Label" parent="." unique_id=318170496]
+layout_mode = 0
+offset_left = 189.0
+offset_top = 99.0
+offset_right = 217.0
+offset_bottom = 122.0
+theme_override_colors/font_color = Color(0.048184834, 0.023761582, 0.007245781, 1)
+theme_override_fonts/font = SubResource("FontVariation_7u286")
+theme_override_font_sizes/font_size = 12
+text = "100"

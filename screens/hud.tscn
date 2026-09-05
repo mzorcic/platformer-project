@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://7tbxxxdyv2ow" path="res://screens/hud.gd" id="1_dvphu"]
 [ext_resource type="PackedScene" uid="uid://dhbu266y7rp5t" path="res://scripts/Inventory/InventorySlot.tscn" id="1_o3vs4"]
+[ext_resource type="PackedScene" uid="uid://bo5plouq4bs6b" path="res://assets/textures/UI textures/HpBarVisual.tscn" id="2_muel6"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_flmph"]
 
@@ -23,11 +24,11 @@ offset_top = 10.0
 offset_right = 238.0
 offset_bottom = 81.0
 
-[node name="HealthBar" type="ProgressBar" parent="HUD/Stats" unique_id=1434999127]
-layout_mode = 2
-
 [node name="ManaBar" type="ProgressBar" parent="HUD/Stats" unique_id=86735701]
 layout_mode = 2
+
+[node name="HpBarVisual" parent="HUD" unique_id=249998197 instance=ExtResource("2_muel6")]
+layout_mode = 1
 
 [node name="Inventory" type="Control" parent="." unique_id=1007313739]
 layout_mode = 3
