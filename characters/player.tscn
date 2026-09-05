@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://d227qr27j5v6t" path="res://test/Assets/Sprout Lands - Sprites - Basic pack/Characters/Basic Charakter Spritesheet.png" id="1_g1dw6"]
 [ext_resource type="Script" uid="uid://bdgemrbttch86" path="res://characters/player.gd" id="1_tory2"]
+[ext_resource type="Script" uid="uid://c3kw5pev6ofxl" path="res://scripts/MoneySystem.gd" id="1_x0jl3"]
 [ext_resource type="Script" uid="uid://7ufwx0k4tdy4" path="res://scripts/HealthSystem.gd" id="3_evndh"]
 [ext_resource type="Script" uid="uid://c1744eprwdul5" path="res://scripts/ResistanceSystem.gd" id="4_h1q25"]
 
@@ -184,20 +185,13 @@ collision_mask = 2
 [node name="AttackRange" type="CollisionShape2D" parent="AttackArea" unique_id=1947896160]
 shape = SubResource("CircleShape2D_flmph")
 
-[node name="HealthBar" type="ProgressBar" parent="." unique_id=1019341258]
-offset_left = -10.0
-offset_top = -12.0
-offset_right = 10.0
-offset_bottom = -7.0
-value = 70.0
-show_percentage = false
-metadata/_edit_use_anchors_ = true
-
 [node name="HealthSystem" type="Node" parent="." unique_id=667070118]
 script = ExtResource("3_evndh")
 
 [node name="ResistanceSystem" type="Node" parent="." unique_id=530789486]
 script = ExtResource("4_h1q25")
 
+[node name="MoneySystem" type="Node" parent="." unique_id=1238272985]
+script = ExtResource("1_x0jl3")
+
 [connection signal="died" from="HealthSystem" to="." method="_on_died"]
-[connection signal="health_changed" from="HealthSystem" to="." method="_on_health_system_health_changed"]

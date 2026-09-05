@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://cvps82f8yjpm2"]
+
+[ext_resource type="Script" uid="uid://7tbxxxdyv2ow" path="res://screens/hud.gd" id="1_dvphu"]
+[ext_resource type="PackedScene" uid="uid://dhbu266y7rp5t" path="res://scripts/Inventory/InventorySlot.tscn" id="1_o3vs4"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_flmph"]
+
+[node name="HUD" type="CanvasLayer" unique_id=91535387]
+script = ExtResource("1_dvphu")
+
+[node name="Control" type="Control" parent="." unique_id=153263189]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Stats" type="VBoxContainer" parent="Control" unique_id=765201112]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 10.0
+offset_right = 238.0
+offset_bottom = 81.0
+
+[node name="HealthBar" type="ProgressBar" parent="Control/Stats" unique_id=1434999127]
+layout_mode = 2
+
+[node name="MoneyLabel" type="Label" parent="Control/Stats" unique_id=1927718302]
+layout_mode = 2
+text = "600$"
+label_settings = SubResource("LabelSettings_flmph")
+
+[node name="InventoryBar" type="VBoxContainer" parent="Control" unique_id=428927743]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -69.0
+offset_top = -202.0
+offset_right = -5.0
+offset_bottom = 202.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="InventorySlot1" parent="Control/InventoryBar" unique_id=1878209895 instance=ExtResource("1_o3vs4")]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="InventorySlot2" parent="Control/InventoryBar" unique_id=1078500755 instance=ExtResource("1_o3vs4")]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="InventorySlot3" parent="Control/InventoryBar" unique_id=829258010 instance=ExtResource("1_o3vs4")]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="InventorySlot4" parent="Control/InventoryBar" unique_id=612833825 instance=ExtResource("1_o3vs4")]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="InventorySlot5" parent="Control/InventoryBar" unique_id=2004920664 instance=ExtResource("1_o3vs4")]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="InventorySlot6" parent="Control/InventoryBar" unique_id=1799424567 instance=ExtResource("1_o3vs4")]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2

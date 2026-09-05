@@ -16,7 +16,7 @@ var is_dead: bool = false
 
 func _ready() -> void:
 	current_health = max_health
-	
+	await get_tree().process_frame
 	health_changed.emit(current_health, max_health)
 
 
@@ -53,13 +53,13 @@ func heal(amount: float) -> void:
 	
 	var old_health := current_health
 	current_health += amount
+	current_health = min(current_health, max_health)
+	
 	var actual_healing := current_health - old_health
 	
 	if actual_healing > 0.0:
 		healed.emit(actual_healing)
-		health_changed.emit(current_health,max_health)
-	
-	health_changed.emit(current_health, max_health)
+		health_changed.emit(current_health, max_health)
 
 
 func die() -> void:

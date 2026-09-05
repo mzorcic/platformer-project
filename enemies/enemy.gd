@@ -51,4 +51,5 @@ func attack() -> void:
 
 
 func _on_died() -> void:
+	$"../Player".get_node("MoneySystem").add_money(randf_range(10, 20))
 	queue_free()

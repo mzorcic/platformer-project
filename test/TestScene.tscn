@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://cu01fm5b0pra0" path="res://test/Assets/Sprout Lands - Sprites - Basic pack/Tilesets/Grass.png" id="1_k0ggn"]
 [ext_resource type="PackedScene" uid="uid://blqulatjqg8qa" path="res://characters/player.tscn" id="2_axyd5"]
 [ext_resource type="PackedScene" uid="uid://da6pfh3ytxf5m" path="res://enemies/enemy.tscn" id="2_k0ggn"]
+[ext_resource type="PackedScene" uid="uid://cvps82f8yjpm2" path="res://screens/hud.tscn" id="4_75yoc"]
 
 [sub_resource type="GDScript" id="GDScript_axyd5"]
 script/source = "extends Node2D
@@ -181,3 +182,5 @@ position = Vector2(110, 27)
 
 [node name="Enemy" parent="." unique_id=651092779 instance=ExtResource("2_k0ggn")]
 position = Vector2(28, 123)
+
+[node name="HUD" parent="." unique_id=91535387 instance=ExtResource("4_75yoc")]
