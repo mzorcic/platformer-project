@@ -4,6 +4,12 @@
 [ext_resource type="PackedScene" uid="uid://dhbu266y7rp5t" path="res://scripts/Inventory/InventorySlot.tscn" id="1_o3vs4"]
 [ext_resource type="Shader" uid="uid://o44wgcymdfc8" path="res://screens/hud.gdshader" id="2_muel6"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s1u5r"]
+bg_color = Color(0.15487596, 0.154876, 0.15487587, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5uu2w"]
+bg_color = Color(0.552962, 1.3596937e-06, 4.813075e-07, 1)
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_flmph"]
 shader = ExtResource("2_muel6")
 shader_parameter/blur_strength = 2.5
@@ -24,18 +30,33 @@ grow_vertical = 2
 
 [node name="Stats" type="VBoxContainer" parent="HUD" unique_id=765201112]
 layout_mode = 0
-offset_left = 5.0
-offset_top = 10.0
-offset_right = 238.0
-offset_bottom = 81.0
+offset_left = 41.0
+offset_top = 21.0
+offset_right = 190.0
+offset_bottom = 105.0
+theme_override_constants/separation = 30
 
 [node name="HealthBar" type="ProgressBar" parent="HUD/Stats" unique_id=1434999127]
+texture_repeat = 1
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_s1u5r")
+theme_override_styles/fill = SubResource("StyleBoxFlat_5uu2w")
+value = 100.0
+show_percentage = false
 
 [node name="ManaBar" type="ProgressBar" parent="HUD/Stats" unique_id=86735701]
 layout_mode = 2
 
+[node name="TextureRect" type="TextureRect" parent="HUD" unique_id=865653550]
+layout_mode = 0
+offset_left = -49.0
+offset_top = -91.0
+offset_right = 310.0
+offset_bottom = 210.0
+
 [node name="Inventory" type="Control" parent="." unique_id=1007313739]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

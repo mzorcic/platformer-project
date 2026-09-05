@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://bdgemrbttch86" path="res://characters/player.gd" id="1_tory2"]
 [ext_resource type="Script" uid="uid://c3kw5pev6ofxl" path="res://scripts/MoneySystem.gd" id="1_x0jl3"]
 [ext_resource type="Script" uid="uid://7ufwx0k4tdy4" path="res://scripts/HealthSystem.gd" id="3_evndh"]
+[ext_resource type="Texture2D" uid="uid://bb7s62mcyevld" path="res://assets/customTextures/characterSprites/KnightTest1.png" id="3_j31ep"]
 [ext_resource type="Script" uid="uid://c1744eprwdul5" path="res://scripts/ResistanceSystem.gd" id="4_h1q25"]
 [ext_resource type="Script" uid="uid://djq5bkys5j4t8" path="res://scripts/ManaSystem.gd" id="6_h1q25"]
 
@@ -15,13 +16,9 @@ region = Rect2(0, 48, 48, 48)
 atlas = ExtResource("1_g1dw6")
 region = Rect2(48, 48, 48, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wyv1x"]
-atlas = ExtResource("1_g1dw6")
-region = Rect2(0, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xbm2f"]
-atlas = ExtResource("1_g1dw6")
-region = Rect2(48, 0, 48, 48)
+[sub_resource type="AtlasTexture" id="AtlasTexture_6t23p"]
+atlas = ExtResource("3_j31ep")
+region = Rect2(0, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qp46w"]
 atlas = ExtResource("1_g1dw6")
@@ -86,10 +83,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wyv1x")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xbm2f")
+"texture": SubResource("AtlasTexture_6t23p")
 }],
 "loop": 1,
 "name": &"idle_front",
@@ -175,6 +169,7 @@ script = ExtResource("1_tory2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=459582142]
 position = Vector2(0, 2)
+scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_flmph")
 animation = &"idle_front"
 autoplay = "idle_front"
