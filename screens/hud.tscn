@@ -2,6 +2,12 @@
 
 [ext_resource type="Script" uid="uid://7tbxxxdyv2ow" path="res://screens/hud.gd" id="1_dvphu"]
 [ext_resource type="PackedScene" uid="uid://dhbu266y7rp5t" path="res://scripts/Inventory/InventorySlot.tscn" id="1_o3vs4"]
+[ext_resource type="Shader" uid="uid://o44wgcymdfc8" path="res://screens/hud.gdshader" id="2_muel6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_flmph"]
+shader = ExtResource("2_muel6")
+shader_parameter/blur_strength = 2.5
+shader_parameter/darken = 0.25
 
 [sub_resource type="LabelSettings" id="LabelSettings_flmph"]
 
@@ -36,6 +42,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Inventory" unique_id=321133386]
+material = SubResource("ShaderMaterial_flmph")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
 
 [node name="GridContainer" type="GridContainer" parent="Inventory" unique_id=1949954275]
 layout_mode = 1
