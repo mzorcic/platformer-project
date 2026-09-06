@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://u3um8a665ekj"]
+
+[ext_resource type="Script" uid="uid://bv42whp3l87nv" path="res://scripts/Items/ItemData.gd" id="1_d3ejq"]
+[ext_resource type="Script" uid="uid://u0bx42277c88" path="res://scripts/DamagePart.gd" id="1_ggpj0"]
+[ext_resource type="Texture2D" uid="uid://dp8l0ekipm16n" path="res://assets/textures/projectiles/bullet.png" id="1_gnx6v"]
+
+[sub_resource type="Resource" id="Resource_n8jd0"]
+script = ExtResource("1_ggpj0")
+amount = 10.0
+metadata/_custom_type_script = "uid://u0bx42277c88"
+
+[sub_resource type="Resource" id="Resource_q605b"]
+script = ExtResource("1_ggpj0")
+amount = 10.0
+damage_type = 1
+metadata/_custom_type_script = "uid://u0bx42277c88"
+
+[resource]
+script = ExtResource("1_d3ejq")
+item_name = "Iron Sword"
+description = "Common Iron Sword
+From Germany"
+icon = ExtResource("1_gnx6v")
+equipment_type = 2
+damage_parts = Array[ExtResource("1_ggpj0")]([SubResource("Resource_n8jd0"), SubResource("Resource_q605b")])
+value = 20
+metadata/_custom_type_script = "uid://bv42whp3l87nv"

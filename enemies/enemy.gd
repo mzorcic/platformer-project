@@ -16,20 +16,21 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if player == null:
 		return
-	
+
 	if attack_timer > 0.0:
 		attack_timer -= delta
-	
-	var distance:= global_position.distance_to(player.global_position)
-	
+
+	var distance := global_position.distance_to(player.global_position)
+
 	if distance <= FOLLOW_RANGE:
 		var direction := global_position.direction_to(player.global_position)
 		velocity = direction * SPEED
 	else:
 		velocity = Vector2.ZERO
+
 	move_and_slide()
-	
-	if attack_timer <= 0.0:
+
+	if distance <= FOLLOW_RANGE and attack_timer <= 0.0:
 		attack()
 		attack_timer = ATTACK_COOLDOWN
 

@@ -5,7 +5,9 @@ enum DamageType {
 	PHYSICAL,
 	FIRE,
 	ICE,
-	LIGHTNING
+	LIGHTNING,
+	POISON,
+	MAGIC
 	}
 
 

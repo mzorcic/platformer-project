@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dhbu266y7rp5t" path="res://scripts/Inventory/InventorySlot.tscn" id="1_o3vs4"]
 [ext_resource type="Texture2D" uid="uid://b4i16ncopj5nj" path="res://assets/customTextures/HealthBar/healthBarupdated_1.png" id="2_77d8y"]
 [ext_resource type="Shader" uid="uid://o44wgcymdfc8" path="res://screens/hud.gdshader" id="2_muel6"]
+[ext_resource type="Script" uid="uid://n8cdofmstmsq" path="res://scripts/Inventory/EquipmentSlot.gd" id="5_dvnbo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6b0l1"]
 bg_color = Color(0.20871013, 0.20871016, 0.20871004, 1)
@@ -21,6 +22,12 @@ bg_color = Color(0.0003877654, 0.3471479, 0, 1)
 shader = ExtResource("2_muel6")
 shader_parameter/blur_strength = 2.5
 shader_parameter/darken = 0.25
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_5lrfx"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_qp288"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_flmph"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_flmph"]
 
@@ -61,6 +68,14 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_5uu2w")
 value = 100.0
 show_percentage = false
 
+[node name="HealthLabel" type="Label" parent="HUD/Stats/DamageBar/HealthBar" unique_id=630277601]
+layout_mode = 0
+offset_left = 14.0
+offset_top = -2.0
+offset_right = 80.0
+offset_bottom = 23.0
+text = "100"
+
 [node name="ManaBar" type="ProgressBar" parent="HUD/Stats" unique_id=86735701]
 layout_mode = 2
 
@@ -73,7 +88,6 @@ offset_bottom = 210.0
 texture = ExtResource("2_77d8y")
 
 [node name="Inventory" type="Control" parent="." unique_id=1007313739]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -81,7 +95,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="Inventory" unique_id=321133386]
+[node name="Blur" type="ColorRect" parent="Inventory" unique_id=321133386]
 material = SubResource("ShaderMaterial_flmph")
 layout_mode = 1
 anchors_preset = 15
@@ -91,71 +105,210 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
 
-[node name="GridContainer" type="GridContainer" parent="Inventory" unique_id=1949954275]
+[node name="BackpackPanel" type="TextureRect" parent="Inventory" unique_id=764402778]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = -161.0
+offset_right = 350.0
+offset_bottom = 207.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("ViewportTexture_5lrfx")
+
+[node name="InventoryPanel" type="TextureRect" parent="Inventory/BackpackPanel" unique_id=1921690948]
+layout_mode = 0
+offset_left = 8.5
+offset_top = 7.0
+offset_right = 223.5
+offset_bottom = 360.0
+texture = SubResource("ViewportTexture_qp288")
+
+[node name="InventoryGrid" type="GridContainer" parent="Inventory/BackpackPanel/InventoryPanel" unique_id=1949954275]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 5.0
-offset_top = -202.0
-offset_right = 205.0
-offset_bottom = 202.0
+offset_left = 6.5
+offset_top = -167.5
+offset_right = 206.5
+offset_bottom = 168.5
 grow_vertical = 2
 columns = 3
 
-[node name="InventorySlot1" parent="Inventory/GridContainer" unique_id=721270200 instance=ExtResource("1_o3vs4")]
+[node name="InventorySlot1" parent="Inventory/BackpackPanel/InventoryPanel/InventoryGrid" unique_id=721270200 instance=ExtResource("1_o3vs4")]
 layout_mode = 2
 
-[node name="InventorySlot2" parent="Inventory/GridContainer" unique_id=606434314 instance=ExtResource("1_o3vs4")]
+[node name="InventorySlot2" parent="Inventory/BackpackPanel/InventoryPanel/InventoryGrid" unique_id=606434314 instance=ExtResource("1_o3vs4")]
 layout_mode = 2
 
-[node name="InventorySlot3" parent="Inventory/GridContainer" unique_id=1545351628 instance=ExtResource("1_o3vs4")]
+[node name="InventorySlot3" parent="Inventory/BackpackPanel/InventoryPanel/InventoryGrid" unique_id=1545351628 instance=ExtResource("1_o3vs4")]
 layout_mode = 2
 
-[node name="InventorySlot4" parent="Inventory/GridContainer" unique_id=925443703 instance=ExtResource("1_o3vs4")]
+[node name="InventorySlot4" parent="Inventory/BackpackPanel/InventoryPanel/InventoryGrid" unique_id=925443703 instance=ExtResource("1_o3vs4")]
 layout_mode = 2
 
-[node name="InventorySlot5" parent="Inventory/GridContainer" unique_id=54182071 instance=ExtResource("1_o3vs4")]
+[node name="InventorySlot5" parent="Inventory/BackpackPanel/InventoryPanel/InventoryGrid" unique_id=54182071 instance=ExtResource("1_o3vs4")]
 layout_mode = 2
 
-[node name="InventorySlot6" parent="Inventory/GridContainer" unique_id=359169747 instance=ExtResource("1_o3vs4")]
+[node name="InventorySlot6" parent="Inventory/BackpackPanel/InventoryPanel/InventoryGrid" unique_id=359169747 instance=ExtResource("1_o3vs4")]
 layout_mode = 2
 
-[node name="InventorySlot7" parent="Inventory/GridContainer" unique_id=1436037222 instance=ExtResource("1_o3vs4")]
+[node name="InventorySlot7" parent="Inventory/BackpackPanel/InventoryPanel/InventoryGrid" unique_id=1436037222 instance=ExtResource("1_o3vs4")]
 layout_mode = 2
 
-[node name="InventorySlot8" parent="Inventory/GridContainer" unique_id=1614039012 instance=ExtResource("1_o3vs4")]
+[node name="InventorySlot8" parent="Inventory/BackpackPanel/InventoryPanel/InventoryGrid" unique_id=1614039012 instance=ExtResource("1_o3vs4")]
 layout_mode = 2
 
-[node name="InventorySlot9" parent="Inventory/GridContainer" unique_id=643000486 instance=ExtResource("1_o3vs4")]
+[node name="InventorySlot9" parent="Inventory/BackpackPanel/InventoryPanel/InventoryGrid" unique_id=643000486 instance=ExtResource("1_o3vs4")]
 layout_mode = 2
 
-[node name="InventorySlot10" parent="Inventory/GridContainer" unique_id=105246275 instance=ExtResource("1_o3vs4")]
+[node name="InventorySlot10" parent="Inventory/BackpackPanel/InventoryPanel/InventoryGrid" unique_id=105246275 instance=ExtResource("1_o3vs4")]
 layout_mode = 2
 
-[node name="InventorySlot11" parent="Inventory/GridContainer" unique_id=504539296 instance=ExtResource("1_o3vs4")]
+[node name="InventorySlot11" parent="Inventory/BackpackPanel/InventoryPanel/InventoryGrid" unique_id=504539296 instance=ExtResource("1_o3vs4")]
 layout_mode = 2
 
-[node name="InventorySlot12" parent="Inventory/GridContainer" unique_id=20786245 instance=ExtResource("1_o3vs4")]
+[node name="InventorySlot12" parent="Inventory/BackpackPanel/InventoryPanel/InventoryGrid" unique_id=20786245 instance=ExtResource("1_o3vs4")]
 layout_mode = 2
 
-[node name="InventorySlot13" parent="Inventory/GridContainer" unique_id=263814760 instance=ExtResource("1_o3vs4")]
+[node name="InventorySlot13" parent="Inventory/BackpackPanel/InventoryPanel/InventoryGrid" unique_id=263814760 instance=ExtResource("1_o3vs4")]
 layout_mode = 2
 
-[node name="InventorySlot14" parent="Inventory/GridContainer" unique_id=2006656782 instance=ExtResource("1_o3vs4")]
+[node name="InventorySlot14" parent="Inventory/BackpackPanel/InventoryPanel/InventoryGrid" unique_id=2006656782 instance=ExtResource("1_o3vs4")]
 layout_mode = 2
 
-[node name="InventorySlot15" parent="Inventory/GridContainer" unique_id=1319507334 instance=ExtResource("1_o3vs4")]
+[node name="InventorySlot15" parent="Inventory/BackpackPanel/InventoryPanel/InventoryGrid" unique_id=1319507334 instance=ExtResource("1_o3vs4")]
 layout_mode = 2
 
-[node name="InventorySlot16" parent="Inventory/GridContainer" unique_id=972420116 instance=ExtResource("1_o3vs4")]
-layout_mode = 2
+[node name="EquipmentGrid" type="GridContainer" parent="Inventory/BackpackPanel" unique_id=1232770299]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 7.5
+offset_top = -225.0
+offset_right = 71.5
+offset_bottom = 179.0
+grow_horizontal = 0
+grow_vertical = 2
 
-[node name="InventorySlot17" parent="Inventory/GridContainer" unique_id=1136952222 instance=ExtResource("1_o3vs4")]
-layout_mode = 2
+[node name="EquipmentPanel" type="TextureRect" parent="Inventory/BackpackPanel" unique_id=105545944]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -291.5
+offset_top = -176.5
+offset_right = -8.5
+offset_bottom = 176.5
+grow_horizontal = 0
+grow_vertical = 2
+texture = SubResource("ViewportTexture_flmph")
 
-[node name="InventorySlot18" parent="Inventory/GridContainer" unique_id=443410646 instance=ExtResource("1_o3vs4")]
-layout_mode = 2
+[node name="HelmetSlot" parent="Inventory/BackpackPanel/EquipmentPanel" unique_id=1878209895 instance=ExtResource("1_o3vs4")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -32.0
+offset_top = 8.5
+offset_right = 32.0
+offset_bottom = 72.5
+grow_horizontal = 2
+script = ExtResource("5_dvnbo")
+equipment_index = -1
+
+[node name="WeaponSlot" parent="Inventory/BackpackPanel/EquipmentPanel" unique_id=1618671347 instance=ExtResource("1_o3vs4")]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 72.5
+offset_right = 94.0
+offset_bottom = 136.5
+script = ExtResource("5_dvnbo")
+equipment_index = 0
+
+[node name="ShieldSlot" parent="Inventory/BackpackPanel/EquipmentPanel" unique_id=172641984 instance=ExtResource("1_o3vs4")]
+layout_mode = 0
+offset_left = 189.0
+offset_top = 72.5
+offset_right = 253.0
+offset_bottom = 136.5
+script = ExtResource("5_dvnbo")
+equipment_index = 1
+
+[node name="BootsSlot" parent="Inventory/BackpackPanel/EquipmentPanel" unique_id=639404702 instance=ExtResource("1_o3vs4")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -32.0
+offset_top = 135.0
+offset_right = 32.0
+offset_bottom = 199.0
+grow_horizontal = 2
+script = ExtResource("5_dvnbo")
+equipment_index = 2
+
+[node name="EquipmentSlot1" parent="Inventory/BackpackPanel/EquipmentPanel" unique_id=1625653385 instance=ExtResource("1_o3vs4")]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 210.0
+offset_right = 73.0
+offset_bottom = 274.0
+script = ExtResource("5_dvnbo")
+equipment_index = 3
+
+[node name="EquipmentSlot2" parent="Inventory/BackpackPanel/EquipmentPanel" unique_id=567986070 instance=ExtResource("1_o3vs4")]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -143.0
+offset_right = 32.0
+offset_bottom = -79.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("5_dvnbo")
+equipment_index = 4
+
+[node name="EquipmentSlot3" parent="Inventory/BackpackPanel/EquipmentPanel" unique_id=1187140672 instance=ExtResource("1_o3vs4")]
+layout_mode = 0
+offset_left = 210.0
+offset_top = 210.0
+offset_right = 274.0
+offset_bottom = 274.0
+script = ExtResource("5_dvnbo")
+equipment_index = 5
+
+[node name="EquipmentSlot4" parent="Inventory/BackpackPanel/EquipmentPanel" unique_id=1236070313 instance=ExtResource("1_o3vs4")]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 280.5
+offset_right = 124.0
+offset_bottom = 344.5
+script = ExtResource("5_dvnbo")
+equipment_index = 6
+
+[node name="EquipmentSlot5" parent="Inventory/BackpackPanel/EquipmentPanel" unique_id=80265945 instance=ExtResource("1_o3vs4")]
+layout_mode = 0
+offset_left = 161.0
+offset_top = 280.5
+offset_right = 225.0
+offset_bottom = 344.5
+script = ExtResource("5_dvnbo")
+equipment_index = 7
 
 [node name="MoneyLabel" type="Label" parent="Inventory" unique_id=1927718302]
 layout_mode = 0

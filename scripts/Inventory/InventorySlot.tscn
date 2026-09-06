@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://dhbu266y7rp5t"]
 
-[ext_resource type="Script" uid="uid://dqab5gjmi12t5" path="res://scripts/Inventory/inventory_slot.gd" id="1_pkxv4"]
+[ext_resource type="Script" uid="uid://dqab5gjmi12t5" path="res://scripts/Inventory/InventorySlot.gd" id="1_pkxv4"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_77d8y"]
 
 [node name="InventorySlot" type="Panel" unique_id=1878209895]
 custom_minimum_size = Vector2(64, 64)
@@ -22,3 +24,5 @@ offset_right = 27.5
 offset_bottom = 27.5
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("CompressedTexture2D_77d8y")

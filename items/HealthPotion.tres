@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://chsk7vaciohbq"]
+
+[ext_resource type="Texture2D" uid="uid://bgskfry13vh83" path="res://assets/customTextures/Water_Bottle_JE2_BE2.webp" id="1_d2588"]
+[ext_resource type="Script" uid="uid://bv42whp3l87nv" path="res://scripts/Items/ItemData.gd" id="1_s06gi"]
+
+[resource]
+script = ExtResource("1_s06gi")
+item_name = "Heal"
+description = "da"
+icon = ExtResource("1_d2588")
+equipment_type = 2
+metadata/_custom_type_script = "uid://bv42whp3l87nv"

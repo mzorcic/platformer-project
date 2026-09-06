@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://cecwoyqcissh0"]
+
+[ext_resource type="Texture2D" uid="uid://8s6jsbppnp16" path="res://assets/customTextures/HealthBar/redBar.png" id="1_8tme8"]
+[ext_resource type="Script" uid="uid://bv42whp3l87nv" path="res://scripts/Items/ItemData.gd" id="1_jrkbu"]
+
+[resource]
+script = ExtResource("1_jrkbu")
+item_name = "Ring of Health"
+description = "Boosts max health"
+icon = ExtResource("1_8tme8")
+equipment_type = 2
+bonus_health = 100.0
+value = 50
+metadata/_custom_type_script = "uid://bv42whp3l87nv"
