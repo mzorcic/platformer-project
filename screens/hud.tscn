@@ -2,13 +2,20 @@
 
 [ext_resource type="Script" uid="uid://7tbxxxdyv2ow" path="res://screens/hud.gd" id="1_dvphu"]
 [ext_resource type="PackedScene" uid="uid://dhbu266y7rp5t" path="res://scripts/Inventory/InventorySlot.tscn" id="1_o3vs4"]
+[ext_resource type="Texture2D" uid="uid://b4i16ncopj5nj" path="res://assets/customTextures/HealthBar/healthBarupdated_1.png" id="2_77d8y"]
 [ext_resource type="Shader" uid="uid://o44wgcymdfc8" path="res://screens/hud.gdshader" id="2_muel6"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6b0l1"]
+bg_color = Color(0.20871013, 0.20871016, 0.20871004, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_crvme"]
+bg_color = Color(0.5333242, 1.0949746e-06, 2.8878452e-07, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s1u5r"]
-bg_color = Color(0.15487596, 0.154876, 0.15487587, 1)
+bg_color = Color(0.15294118, 0.15294118, 0.15294118, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5uu2w"]
-bg_color = Color(0.552962, 1.3596937e-06, 4.813075e-07, 1)
+bg_color = Color(0.0003877654, 0.3471479, 0, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_flmph"]
 shader = ExtResource("2_muel6")
@@ -36,10 +43,19 @@ offset_right = 190.0
 offset_bottom = 105.0
 theme_override_constants/separation = 30
 
-[node name="HealthBar" type="ProgressBar" parent="HUD/Stats" unique_id=1434999127]
-texture_repeat = 1
+[node name="DamageBar" type="ProgressBar" parent="HUD/Stats" unique_id=403020162]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_6b0l1")
+theme_override_styles/fill = SubResource("StyleBoxFlat_crvme")
+show_percentage = false
+
+[node name="HealthBar" type="ProgressBar" parent="HUD/Stats/DamageBar" unique_id=1434999127]
+texture_repeat = 1
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 0
+offset_right = 149.0
+offset_bottom = 20.0
 theme_override_styles/background = SubResource("StyleBoxFlat_s1u5r")
 theme_override_styles/fill = SubResource("StyleBoxFlat_5uu2w")
 value = 100.0
@@ -54,6 +70,7 @@ offset_left = -49.0
 offset_top = -91.0
 offset_right = 310.0
 offset_bottom = 210.0
+texture = ExtResource("2_77d8y")
 
 [node name="Inventory" type="Control" parent="." unique_id=1007313739]
 visible = false

@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://dfg3barxuttlb"]
 
+[ext_resource type="Script" uid="uid://b8pgtyhnerb0v" path="res://screens/inventory.gd" id="1_18ck8"]
 [ext_resource type="PackedScene" uid="uid://dhbu266y7rp5t" path="res://scripts/Inventory/InventorySlot.tscn" id="1_50543"]
 
 [node name="Inventory" type="Control" unique_id=1479930001]
@@ -9,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_18ck8")
 
 [node name="GridContainer" type="GridContainer" parent="." unique_id=44949398]
 layout_mode = 1
@@ -23,19 +25,15 @@ grow_vertical = 2
 columns = 3
 
 [node name="InventorySlot" parent="GridContainer" unique_id=1878209895 instance=ExtResource("1_50543")]
-custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 
 [node name="InventorySlot2" parent="GridContainer" unique_id=110478469 instance=ExtResource("1_50543")]
-custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 
 [node name="InventorySlot3" parent="GridContainer" unique_id=195813504 instance=ExtResource("1_50543")]
-custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 
 [node name="InventorySlot4" parent="GridContainer" unique_id=1693711406 instance=ExtResource("1_50543")]
-custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 
 [node name="InventorySlot5" parent="GridContainer" unique_id=1806638117 instance=ExtResource("1_50543")]
@@ -45,7 +43,6 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="InventorySlot7" parent="GridContainer" unique_id=891958114 instance=ExtResource("1_50543")]
-custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 
 [node name="InventorySlot8" parent="GridContainer" unique_id=1394901448 instance=ExtResource("1_50543")]
@@ -55,7 +52,6 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="InventorySlot10" parent="GridContainer" unique_id=72198352 instance=ExtResource("1_50543")]
-custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 
 [node name="InventorySlot11" parent="GridContainer" unique_id=815732787 instance=ExtResource("1_50543")]
@@ -65,7 +61,6 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="InventorySlot13" parent="GridContainer" unique_id=605542767 instance=ExtResource("1_50543")]
-custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 
 [node name="InventorySlot14" parent="GridContainer" unique_id=237472906 instance=ExtResource("1_50543")]
@@ -75,7 +70,6 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="InventorySlot16" parent="GridContainer" unique_id=1382288632 instance=ExtResource("1_50543")]
-custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 
 [node name="InventorySlot17" parent="GridContainer" unique_id=1330633071 instance=ExtResource("1_50543")]

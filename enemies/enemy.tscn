@@ -41,6 +41,7 @@ script = ExtResource("1_7frlh")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=866628349]
 sprite_frames = SubResource("SpriteFrames_flmph")
 animation = &"idle_front"
+autoplay = "idle_front"
 frame_progress = 0.33373892
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=162652672]

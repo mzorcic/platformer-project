@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const SPEED = 70.0
+const SPEED = 20.0
 const FOLLOW_RANGE = 50.0
 const ATTACK_COOLDOWN = 1.0
 @export var attack_damage = 10.0

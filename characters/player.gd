@@ -9,8 +9,6 @@ const SPEED = 100.0
 @onready var mana_system: ManaSystem = $ManaSystem
 @onready var money_system: MoneySystem = $MoneySystem
 
-const ATTACK_RANGE := 20.0
-const ATTACK_ANGLE := 120.0
 
 
 func _ready() -> void:
@@ -18,7 +16,6 @@ func _ready() -> void:
 	health_system.health_changed.connect(hud.update_health)
 	money_system.money_changed.connect(hud.update_money)
 	mana_system.mana_changed.connect(hud.update_mana)
-	create_attack_cone()
 
 
 func get_movement_input():
@@ -39,7 +36,6 @@ func _process(delta: float) -> void:
 
 
 func _input(event: InputEvent) -> void:
-	
 	if event.is_action_pressed("attack"):
 		attack()
 
@@ -80,21 +76,3 @@ func attack() -> void:
 func _on_died() -> void:
 	queue_free()
 	get_tree().change_scene_to_file("res://screens/DiedScene.tscn")
-
-
-func create_attack_cone() -> void:
-	var points := PackedVector2Array()
-	
-	points.append(Vector2.ZERO)
-	
-	var segments := 30
-	var half_angle := deg_to_rad(ATTACK_ANGLE / 2.0)
-	
-	for i in range(segments + 1):
-		var t := float(i) / float(segments)
-		var angle := -half_angle + (ATTACK_ANGLE * t * PI / 180.0)
-		
-		var point := Vector2.RIGHT.rotated(angle) * ATTACK_RANGE
-		points.append(point)
-	
-	attack_cone.polygon = points

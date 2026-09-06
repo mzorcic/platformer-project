@@ -185,3 +185,6 @@ position = Vector2(448, 168)
 position = Vector2(161, 223)
 
 [node name="HUD" parent="." unique_id=91535387 instance=ExtResource("4_75yoc")]
+
+[node name="Enemy2" parent="." unique_id=1626851990 instance=ExtResource("2_k0ggn")]
+position = Vector2(149, 176)
