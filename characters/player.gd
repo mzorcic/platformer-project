@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const SPEED = 100.0
+const SPEED = 300.0
 const BASE_ATTACK_DAMAGE := 25.0
 const ATTACK_COOLDOWN := 0.5
 
@@ -15,6 +15,7 @@ var attack_timer: float = 0.0
 @onready var inventory: Inventory = $Inventory
 @onready var equipment: Equipment = $Equipment
 @onready var resistance_system: ResistanceSystem = $ResistanceSystem
+@onready var sweeping_attack: AnimatedSprite2D = $AnimatedSprite2D/SweepingAttack
 
 
 
@@ -24,7 +25,6 @@ func _ready() -> void:
 	money_system.money_changed.connect(hud.update_money)
 	mana_system.mana_changed.connect(hud.update_mana)
 	inventory.inventory_changed.connect(hud.update_inventory)
-	equipment.equipment_changed.connect(_on_equipment_changed)
 	
 	await get_tree().process_frame
 	
@@ -66,7 +66,7 @@ func _input(event: InputEvent) -> void:
 func attack() -> void:
 	if attack_timer > 0.0:
 		return
-
+	
 	attack_timer = ATTACK_COOLDOWN
 
 	var attack_angle: float = deg_to_rad(120.0)
@@ -74,7 +74,7 @@ func attack() -> void:
 	var bodies: Array[Node2D] = attack_area.get_overlapping_bodies()
 
 	var hit_enemies: Array[Node] = []
-
+	sweeping_attack.play("sweeping_attack")
 	for body in bodies:
 		if not body.is_in_group("enemy"):
 			continue

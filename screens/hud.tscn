@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://7tbxxxdyv2ow" path="res://screens/hud.gd" id="1_dvphu"]
 [ext_resource type="PackedScene" uid="uid://dhbu266y7rp5t" path="res://scripts/Inventory/InventorySlot.tscn" id="1_o3vs4"]
+[ext_resource type="Texture2D" uid="uid://bw2htnku8a12f" path="res://assets/customTextures/manaBar/manaBar.png" id="2_crvme"]
 [ext_resource type="Shader" uid="uid://o44wgcymdfc8" path="res://screens/hud.gdshader" id="2_muel6"]
 [ext_resource type="Script" uid="uid://n8cdofmstmsq" path="res://scripts/Inventory/EquipmentSlot.gd" id="5_dvnbo"]
 [ext_resource type="Texture2D" uid="uid://d1fri7aakhpaa" path="res://assets/customTextures/inventoryIcons/helmetSlotInventory.png" id="5_kfpg4"]
@@ -21,6 +22,11 @@ bg_color = Color(0.15294118, 0.15294118, 0.15294118, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5uu2w"]
 bg_color = Color(0.0003877654, 0.3471479, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5lrfx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sc02o"]
+bg_color = Color(0.101960786, 0.61960787, 0.6039216, 1)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0end1"]
 load_path = "res://.godot/imported/healthBar3.0.png-ed1a5870178bc8e77839bb6827f0028f.ctex"
@@ -111,15 +117,28 @@ offset_bottom = 23.0
 text = "100"
 
 [node name="ManaBar" type="ProgressBar" parent="HUD/Stats" unique_id=86735701]
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_5lrfx")
+theme_override_styles/fill = SubResource("StyleBoxFlat_sc02o")
+show_percentage = false
 
-[node name="TextureRect" type="TextureRect" parent="HUD" unique_id=865653550]
+[node name="HealthBarBorder" type="TextureRect" parent="HUD" unique_id=865653550]
 layout_mode = 0
 offset_left = -17.0
 offset_top = -38.0
 offset_right = 223.0
 offset_bottom = 120.0
 texture = SubResource("CompressedTexture2D_0end1")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="HUD" unique_id=541843174]
+layout_mode = 0
+offset_left = -11.0
+offset_top = 9.0
+offset_right = 222.0
+offset_bottom = 174.0
+texture = ExtResource("2_crvme")
 expand_mode = 1
 
 [node name="Inventory" type="Control" parent="." unique_id=1007313739]

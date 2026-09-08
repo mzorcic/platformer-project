@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://6is1aqo4tp82"]
+
+[ext_resource type="Script" uid="uid://75d6jnme6hsv" path="res://dungeon/scripts/DungeonGenerator.gd" id="1_cuc76"]
+[ext_resource type="Script" uid="uid://buqpo451jqtrx" path="res://dungeon/DungeonCamera.gd" id="2_h08cs"]
+
+[node name="Dungeon" type="Node2D" unique_id=1404260784]
+script = ExtResource("1_cuc76")
+min_rooms = null
+max_rooms = null
+room_spacing = null
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=2142201757]
+zoom = Vector2(0.5, 0.5)
+limit_enabled = false
+script = ExtResource("2_h08cs")
