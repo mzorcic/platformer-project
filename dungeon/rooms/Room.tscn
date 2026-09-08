@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://b13huyf4q5njk"]
+
+[ext_resource type="Script" uid="uid://b03lu4ffcnq0u" path="res://dungeon/scripts/Room.gd" id="1_3q5ap"]
+
+[node name="Room" type="Node2D" unique_id=28013105]
+script = ExtResource("1_3q5ap")
+
+[node name="EntranceTop" type="Marker2D" parent="." unique_id=1413609105]
+position = Vector2(0, -180)
+
+[node name="EntranceBottom" type="Marker2D" parent="." unique_id=1226281819]
+position = Vector2(0, 180)
+
+[node name="EntranceLeft" type="Marker2D" parent="." unique_id=802857654]
+position = Vector2(-320, 0)
+
+[node name="EntranceRight" type="Marker2D" parent="." unique_id=591424093]
+position = Vector2(320, 0)
