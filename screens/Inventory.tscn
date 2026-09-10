@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ccrgetgaxpubk" path="res://screens/inventory_screen.gd" id="1_18ck8"]
 [ext_resource type="PackedScene" uid="uid://dhbu266y7rp5t" path="res://scripts/Inventory/InventorySlot.tscn" id="1_50543"]
+[ext_resource type="Texture2D" uid="uid://8tne0d2ouitc" path="res://assets/customTextures/InventoryBackgrounds/inventoryBackgroundMain.png" id="3_w0m2e"]
 
 [node name="Inventory" type="Control" unique_id=1479930001]
 layout_mode = 3
@@ -11,6 +12,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_18ck8")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1738725568]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("3_w0m2e")
 
 [node name="GridContainer" type="GridContainer" parent="." unique_id=44949398]
 layout_mode = 1
