@@ -4,10 +4,13 @@
 [ext_resource type="PackedScene" uid="uid://dhbu266y7rp5t" path="res://scripts/Inventory/InventorySlot.tscn" id="1_o3vs4"]
 [ext_resource type="Texture2D" uid="uid://bw2htnku8a12f" path="res://assets/customTextures/manaBar/manaBar.png" id="2_crvme"]
 [ext_resource type="Shader" uid="uid://o44wgcymdfc8" path="res://screens/hud.gdshader" id="2_muel6"]
+[ext_resource type="Texture2D" uid="uid://8tne0d2ouitc" path="res://assets/customTextures/InventoryBackgrounds/inventoryBackgroundMain.png" id="4_vrefq"]
+[ext_resource type="Texture2D" uid="uid://ds5gfrh3m27p3" path="res://assets/customTextures/InventoryBackgrounds/inventoryBackpackBG.png" id="5_86yfm"]
 [ext_resource type="Script" uid="uid://n8cdofmstmsq" path="res://scripts/Inventory/EquipmentSlot.gd" id="5_dvnbo"]
 [ext_resource type="Texture2D" uid="uid://d1fri7aakhpaa" path="res://assets/customTextures/inventoryIcons/helmetSlotInventory.png" id="5_kfpg4"]
 [ext_resource type="Texture2D" uid="uid://du5tgbb0pqvo7" path="res://assets/customTextures/inventoryIcons/offHandSlotInventory.png" id="7_5uu2w"]
 [ext_resource type="Texture2D" uid="uid://0f12dscb864o" path="res://assets/customTextures/inventoryIcons/weaponSlotInventory.png" id="7_s1u5r"]
+[ext_resource type="Texture2D" uid="uid://dbtbvn14dqhc4" path="res://assets/customTextures/InventoryBackgrounds/InventoryEquipmentBG.png" id="7_sd4qo"]
 [ext_resource type="Texture2D" uid="uid://ctgr4squdkouy" path="res://assets/customTextures/inventoryIcons/BootsSlotInventory.png" id="8_crvme"]
 [ext_resource type="Texture2D" uid="uid://bmbb46csadhkv" path="res://assets/customTextures/inventoryIcons/trinketSlotInventory.png" id="9_sc02o"]
 
@@ -35,12 +38,6 @@ load_path = "res://.godot/imported/healthBar3.0.png-ed1a5870178bc8e77839bb6827f0
 shader = ExtResource("2_muel6")
 shader_parameter/blur_strength = 2.5
 shader_parameter/darken = 0.25
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_5lrfx"]
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_qp288"]
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_flmph"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5uu2w"]
 texture = ExtResource("5_kfpg4")
@@ -142,7 +139,6 @@ texture = ExtResource("2_crvme")
 expand_mode = 1
 
 [node name="Inventory" type="Control" parent="." unique_id=1007313739]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -161,6 +157,7 @@ grow_vertical = 2
 color = Color(1, 1, 1, 0)
 
 [node name="BackpackPanel" type="TextureRect" parent="Inventory" unique_id=764402778]
+custom_minimum_size = Vector2(700, 368)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -173,7 +170,8 @@ offset_right = 350.0
 offset_bottom = 207.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("ViewportTexture_5lrfx")
+texture = ExtResource("4_vrefq")
+expand_mode = 1
 
 [node name="InventoryPanel" type="TextureRect" parent="Inventory/BackpackPanel" unique_id=1921690948]
 layout_mode = 0
@@ -181,7 +179,8 @@ offset_left = 8.5
 offset_top = 7.0
 offset_right = 223.5
 offset_bottom = 360.0
-texture = SubResource("ViewportTexture_qp288")
+texture = ExtResource("5_86yfm")
+expand_mode = 1
 
 [node name="InventoryGrid" type="GridContainer" parent="Inventory/BackpackPanel/InventoryPanel" unique_id=1949954275]
 layout_mode = 1
@@ -267,7 +266,8 @@ offset_right = -8.5
 offset_bottom = 176.5
 grow_horizontal = 0
 grow_vertical = 2
-texture = SubResource("ViewportTexture_flmph")
+texture = ExtResource("7_sd4qo")
+expand_mode = 1
 
 [node name="HelmetSlot" parent="Inventory/BackpackPanel/EquipmentPanel" unique_id=1878209895 instance=ExtResource("1_o3vs4")]
 layout_mode = 1
@@ -376,9 +376,9 @@ equipment_index = 7
 
 [node name="MoneyLabel" type="Label" parent="Inventory" unique_id=1927718302]
 layout_mode = 0
-offset_left = 5.0
-offset_top = 6.0
-offset_right = 238.0
-offset_bottom = 29.0
+offset_left = 1227.0
+offset_top = 349.0
+offset_right = 1306.0
+offset_bottom = 372.0
 text = "Money"
 label_settings = SubResource("LabelSettings_flmph")
