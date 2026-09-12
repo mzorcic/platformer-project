@@ -1,6 +1,7 @@
 extends Panel
 
 @onready var item_icon: TextureRect = $ItemIcon
+@onready var stack_amount: Label = $StackAmount
 
 var slot_index: int = -1
 var inventory: Inventory = null
@@ -16,11 +17,16 @@ func set_item(item: ItemData) -> void:
 		return
 
 	item_icon.texture = item.icon
+	if item.stack_amount > 1:
+		stack_amount.text = str(item.stack_amount)
+	else:
+		stack_amount.text = ""
 
 
 func clear_slot() -> void:
 	item_data = null
 	item_icon.texture = null
+	stack_amount.text = ""
 
 
 func _get_drag_data(_at_position: Vector2):
@@ -181,3 +187,11 @@ func _drop_data(_at_position: Vector2, data) -> void:
 			" with ",
 			inventory_item.item_name
 		)
+
+
+func _on_mouse_entered() -> void:
+	pass
+
+
+func _on_mouse_exited() -> void:
+	pass # Replace with function body.

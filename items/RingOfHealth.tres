@@ -14,6 +14,7 @@ script = ExtResource("1_jrkbu")
 item_name = "Ring of Health"
 description = "Boosts max health"
 icon = ExtResource("1_8tme8")
+is_stackable = false
 equipment_type = 2
 damage_parts = Array[ExtResource("1_vf44u")]([SubResource("Resource_75yoc")])
 bonus_health = 100.0

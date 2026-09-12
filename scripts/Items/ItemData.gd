@@ -16,6 +16,9 @@ enum EquipmentType {
 @export var item_name: String = ""
 @export_multiline var description: String = ""
 @export var icon: Texture2D
+@export var stack_amount: int = 1
+@export var max_stack_size: int = 10
+@export var is_stackable: bool = true
 
 
 @export_category("Equipment")

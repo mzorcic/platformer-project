@@ -21,6 +21,7 @@ extends CanvasLayer
 @onready var inventory_ui: Control = $Inventory
 @onready var inventory_grid: GridContainer = $Inventory/BackpackPanel/InventoryPanel/InventoryGrid
 @onready var player_inventory: Inventory = $"../Player/Inventory"
+@onready var tooltip: TextEdit = $Inventory/Tooltip
 
 var equipment: Equipment = null
 var health_tween: Tween
@@ -91,7 +92,7 @@ func update_mana(current_mana: float, max_mana: float) -> void:
 
 
 func update_money(money: int) -> void:
-	money_label.text = "$%d" % money
+	money_label.text = str(money) + " Gold"
 
 
 func update_inventory(items: Array) -> void:
@@ -104,10 +105,7 @@ func update_inventory(items: Array) -> void:
 			slots[i].clear_slot()
 
 
-func setup_inventory_slots(
-	player_inventory: Inventory,
-	player_equipment: Equipment
-) -> void:
+func setup_inventory_slots(	player_inventory: Inventory, player_equipment: Equipment) -> void:
 
 	var slots = inventory_grid.get_children()
 
@@ -119,10 +117,7 @@ func setup_inventory_slots(
 	print("Inventory assigned to ", slots.size(), " slots")
 
 
-func setup_equipment_slots(
-	player_equipment: Equipment,
-	player_inventory: Inventory
-) -> void:
+func setup_equipment_slots(player_equipment: Equipment, player_inventory: Inventory) -> void:
 
 	equipment = player_equipment
 

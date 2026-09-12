@@ -8,6 +8,9 @@ texture = ExtResource("1_xtjid")
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_77d8y"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_5lrfx"]
+font_size = 9
+
 [node name="InventorySlot" type="Panel" unique_id=1878209895]
 custom_minimum_size = Vector2(64, 64)
 custom_maximum_size = Vector2(64, 64)
@@ -31,3 +34,14 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("CompressedTexture2D_77d8y")
+
+[node name="StackAmount" type="Label" parent="." unique_id=1776730691]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 48.0
+offset_right = 24.0
+offset_bottom = 61.0
+label_settings = SubResource("LabelSettings_5lrfx")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

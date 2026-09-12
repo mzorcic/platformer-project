@@ -14,18 +14,39 @@ func _ready() -> void:
 
 func add_item(item: ItemData) -> bool:
 	if item == null:
-		return false
+		return false 
+	
+	if item in items:
+		if item.is_stackable:
+			if item.stack_amount < item.max_stack_size:
+				item.stack_amount += 1
+				
+				inventory_changed.emit(items)
+			else:
+				for i in range(SLOT_COUNT):
+					if items[i] == null:
+						items[i] = item
+						item.stack_amount = 1
+						inventory_changed.emit(items)
+						return true
+		else:
+			for i in range(SLOT_COUNT):
+				if items[i] == null:
+					items[i] = item
+					
+					inventory_changed.emit(items)
+					return true
+		
+	else:
+		for i in range(SLOT_COUNT):
+			if items[i] == null:
+				items[i] = item
+		
+				inventory_changed.emit(items)
 
-	for i in range(SLOT_COUNT):
-		if items[i] == null:
-			items[i] = item
-
-			inventory_changed.emit(items)
-
-			return true
-
+				return true
+		
 	return false
-
 
 func remove_item(slot_index: int) -> void:
 	if slot_index < 0 or slot_index >= SLOT_COUNT:
