@@ -206,6 +206,7 @@ radius = 7.250777
 
 [node name="Player" type="CharacterBody2D" unique_id=1662639462]
 texture_filter = 1
+collision_mask = 2
 script = ExtResource("1_tory2")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1410383498]
@@ -219,8 +220,10 @@ autoplay = "idle_front"
 
 [node name="SweepingAttack" type="AnimatedSprite2D" parent="AnimatedSprite2D" unique_id=1523262511]
 sprite_frames = SubResource("SpriteFrames_5lrfx")
-animation = &"new_animation"
+animation = &"sweeping_attack"
 autoplay = "new_animation"
+frame = 7
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2038002209]
 position = Vector2(0, 2)

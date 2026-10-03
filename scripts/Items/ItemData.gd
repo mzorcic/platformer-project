@@ -11,18 +11,31 @@ enum EquipmentType {
 	TRINKET
 }
 
+enum Rarity {
+	COMMON,
+	UNCOMMON,
+	RARE,
+	EPIC,
+	LEGENDARY,
+	MYTHICAL
+}
+
 
 @export_category("Basic Information")
 @export var item_name: String = ""
 @export_multiline var description: String = ""
 @export var icon: Texture2D
-@export var stack_amount: int = 1
-@export var max_stack_size: int = 10
+
+
+@export_category("Stacking")
 @export var is_stackable: bool = true
+@export_range(1, 999) var max_stack: int = 10
 
 
 @export_category("Equipment")
+@export var rarity: Rarity = Rarity.COMMON
 @export var equipment_type: EquipmentType = EquipmentType.ITEM
+@export var is_usable: bool = false
 
 
 @export_category("Weapon Stats")
@@ -42,6 +55,11 @@ enum EquipmentType {
 @export var lightning_resistance: float = 0.0
 @export var poison_resistance: float = 0.0
 @export var magic_resistance: float = 0.0
+
+
+@export_category("Healing")
+@export var healing: float = 0.0
+@export var regen_mana: float = 0.0
 
 
 @export_category("Other")

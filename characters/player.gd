@@ -9,13 +9,15 @@ var attack_timer: float = 0.0
 @onready var attack_area: Area2D = $AttackArea
 @onready var attack_cone: Polygon2D = $AttackArea/AttackCone
 @onready var hud = $"../HUD"
+@onready var stats_panel = $"../HUD/Inventory/PlayerStats"
 @onready var health_system: HealthSystem = $HealthSystem
 @onready var mana_system: ManaSystem = $ManaSystem
 @onready var money_system: MoneySystem = $MoneySystem
 @onready var inventory: Inventory = $Inventory
 @onready var equipment: Equipment = $Equipment
 @onready var resistance_system: ResistanceSystem = $ResistanceSystem
-@onready var sweeping_attack: AnimatedSprite2D = $AnimatedSprite2D/SweepingAttack
+@onready var sweeping_attack: AnimatedSprite2D = $AnimatedSprite2D/SweepingAttack	
+@onready var player_animation: AnimatedSprite2D = $AnimatedSprite2D
 
 
 
@@ -26,10 +28,13 @@ func _ready() -> void:
 	mana_system.mana_changed.connect(hud.update_mana)
 	inventory.inventory_changed.connect(hud.update_inventory)
 	
+	
 	await get_tree().process_frame
 	
 	hud.setup_inventory_slots(inventory, equipment)
 	hud.setup_equipment_slots(equipment, inventory)
+	
+	stats_panel.setup(self)
 
 
 func get_movement_input():
@@ -56,10 +61,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("attack"):
 		attack()
 	if event.is_action_pressed("test_key"):
-		var test_item: ItemData = preload("res://items/RingOfHealth.tres")
-		inventory.add_item(test_item)
-	if event.is_action_pressed("test_key_2"):
-		var test_item: ItemData = preload("res://items/IronSword.tres")
+		var test_item: ItemData = preload("res://items/Weapons/Battleaxe.tres")
 		inventory.add_item(test_item)
 
 
@@ -68,39 +70,40 @@ func attack() -> void:
 		return
 	
 	attack_timer = ATTACK_COOLDOWN
-
-	var attack_angle: float = deg_to_rad(120.0)
-
-	var bodies: Array[Node2D] = attack_area.get_overlapping_bodies()
-
-	var hit_enemies: Array[Node] = []
+	sweeping_attack.rotation = get_angle_to(get_global_mouse_position()) - 360
 	sweeping_attack.play("sweeping_attack")
+	
+	var attack_angle: float = deg_to_rad(120.0)
+	
+	var bodies: Array[Node2D] = attack_area.get_overlapping_bodies()
+	
+	var hit_enemies: Array[Node] = []
 	for body in bodies:
 		if not body.is_in_group("enemy"):
 			continue
-
+		
 		if body in hit_enemies:
 			continue
-
+		
 		var direction_to_enemy: Vector2 = body.global_position - global_position
-
+		
 		var angle_to_enemy: float = abs(
 			attack_area.global_rotation - direction_to_enemy.angle()
 		)
-
+		
 		if angle_to_enemy > PI:
 			angle_to_enemy = TAU - angle_to_enemy
-
+		
 		if angle_to_enemy > attack_angle / 2.0:
 			continue
-
+		
 		var enemy_health: HealthSystem = body.get_node_or_null("HealthSystem") as HealthSystem
-
+		
 		if enemy_health == null:
 			continue
-
+		
 		hit_enemies.append(body)
-
+		
 		# Weapon equipped
 		if equipment.weapon != null:
 

@@ -33,7 +33,7 @@ func take_damage(damage: DamageSystem) -> void:
 	
 	if resistance_system != null:
 		final_damage = resistance_system.calculate_damage(damage)
-	
+	print(final_damage)
 	current_health -= final_damage
 	
 	current_health = max(current_health, 0.0)
@@ -82,8 +82,6 @@ func get_max_health_with_equipment() -> float:
 
 
 func update_equipment_bonuses() -> void:
-
-	var old_max_health := max_health
 
 	max_health = base_max_health
 

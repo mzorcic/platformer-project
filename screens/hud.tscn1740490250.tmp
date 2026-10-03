@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://co2dxv1fm68la" path="res://assets/customTextures/inventoryIcons/TransparentInventoryIcons/trinketSlotInventoryT.png" id="13_6w6ui"]
 [ext_resource type="PackedScene" uid="uid://bkeau10chh16n" path="res://scripts/Inventory/ItemTooltip.tscn" id="14_86yfm"]
 [ext_resource type="PackedScene" uid="uid://dejxbo78pr5fl" path="res://scripts/Inventory/PlayerStats.tscn" id="14_sd4qo"]
-[ext_resource type="Script" uid="uid://ch7imp5o14h3l" path="res://loot/Chest/ChestSlot.gd" id="15_sd4qo"]
+[ext_resource type="Script" uid="uid://ch7imp5o14h3l" path="res://chest/ChestSlot.gd" id="15_sd4qo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6b0l1"]
 bg_color = Color(0.20871013, 0.20871016, 0.20871004, 1)

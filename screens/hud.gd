@@ -21,23 +21,31 @@ extends CanvasLayer
 @onready var inventory_ui: Control = $Inventory
 @onready var inventory_grid: GridContainer = $Inventory/BackpackPanel/InventoryPanel/InventoryGrid
 @onready var player_inventory: Inventory = $"../Player/Inventory"
-@onready var tooltip: TextEdit = $Inventory/Tooltip
+@onready var item_tooltip = $Inventory/BackpackPanel/ItemTooltip
+@onready var interaction_prompt = $HUD/InteractionPrompt
+@onready var chest_panel = $ChestPanel
+@onready var chest_inventory = $ChestPanel/ChestBackground/ChestGrid
 
 var equipment: Equipment = null
 var health_tween: Tween
 var damage_tween: Tween
 var backpack_open: bool = false
+var current_chest = null
+var chest_open: bool = false
 
 
 func _ready() -> void:
+	add_to_group("hud")
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	inventory_ui.visible = false
-	
+	hide_item_tooltip()
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("backpack"):
 		toggle_backpack()
+	if event.is_action_pressed("ui_cancel"):
+		close_current_ui()
 
 
 func toggle_backpack() -> void:
@@ -50,6 +58,17 @@ func toggle_backpack() -> void:
 		get_tree().paused = true
 	else:
 		get_tree().paused = false
+
+
+func close_current_ui() -> void:
+
+	if chest_open:
+		close_chest()
+		return
+
+	elif backpack_open:
+		toggle_backpack()
+		return
 
 
 func update_health(current_health: float, max_health: float) -> void:
@@ -97,33 +116,34 @@ func update_money(money: int) -> void:
 
 func update_inventory(items: Array) -> void:
 	var slots = inventory_grid.get_children()
-	
+
 	for i in range(slots.size()):
 		if i < items.size() and items[i] != null:
-			slots[i].set_item(items[i])
+			slots[i].set_item(
+				items[i].item,
+				items[i].amount
+			)
 		else:
 			slots[i].clear_slot()
 
 
-func setup_inventory_slots(	player_inventory: Inventory, player_equipment: Equipment) -> void:
+func setup_inventory_slots(	player_inventory_a: Inventory, player_equipment: Equipment) -> void:
 
 	var slots = inventory_grid.get_children()
 
 	for i in range(slots.size()):
 		slots[i].slot_index = i
-		slots[i].inventory = player_inventory
+		slots[i].inventory = player_inventory_a
 		slots[i].equipment = player_equipment
 
-	print("Inventory assigned to ", slots.size(), " slots")
 
-
-func setup_equipment_slots(player_equipment: Equipment, player_inventory: Inventory) -> void:
+func setup_equipment_slots(player_equipment: Equipment, player_inventory_b: Inventory) -> void:
 
 	equipment = player_equipment
 
 	for slot in equipment_slots:
 		slot.equipment = player_equipment
-		slot.inventory = player_inventory
+		slot.inventory = player_inventory_b
 
 	equipment.equipment_changed.connect(update_equipment)
 
@@ -161,3 +181,87 @@ func update_equipment() -> void:
 		equipment_slots[i + 4].set_item(
 			equipment.trinkets[i]
 		)
+
+
+func show_item_tooltip(item: ItemData) -> void:
+	item_tooltip.show_item(item)
+
+
+func hide_item_tooltip() -> void:
+	item_tooltip.hide_tooltip()
+
+
+func show_interaction_prompt() -> void:
+	if chest_open:
+		return
+	
+	interaction_prompt.visible = true
+
+
+func hide_interaction_prompt() -> void:
+	interaction_prompt.visible = false
+
+
+func open_chest(chest) -> void:
+	
+	chest_open = true
+	inventory_ui.visible = true
+	hud.visible = false
+
+	chest_panel.visible = true
+
+	chest_inventory = chest.chest_inventory
+
+	setup_chest_slots(chest_inventory)
+
+	chest_inventory.inventory_changed.connect(
+		update_chest_inventory
+	)
+
+	update_chest_inventory(chest_inventory.items)
+
+	get_tree().paused = true
+
+
+func close_chest() -> void:
+	current_chest = null
+	chest_panel.visible = false
+	chest_open = false
+	inventory_ui.visible = false
+	hud.visible = true
+	get_tree().paused = false
+
+
+func setup_chest_slots(chest: ChestInventory) -> void:
+
+	var slots = $ChestPanel/ChestBackground/ChestGrid.get_children()
+
+	print("Found chest slots: ", slots.size())
+
+	for i in range(slots.size()):
+
+		var slot: ChestSlot = slots[i]
+
+		slot.slot_index = i
+		slot.chest = chest
+		slot.inventory = player_inventory
+
+	print("Chest slots setup complete.")
+
+
+func update_chest_inventory(items: Array) -> void:
+
+	var slots = $ChestPanel/ChestBackground/ChestGrid.get_children()
+
+	for i in range(slots.size()):
+
+		if i < items.size() and items[i] != null:
+
+			slots[i].set_item(
+				items[i].item,
+				items[i].amount
+			)
+
+		else:
+
+			slots[i].clear_slot()

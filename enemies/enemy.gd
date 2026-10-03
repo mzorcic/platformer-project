@@ -53,4 +53,6 @@ func attack() -> void:
 
 func _on_died() -> void:
 	player.get_node("MoneySystem").add_money(randf_range(10, 20))
+	var test_item: ItemData = preload("res://items/Potions/HealingPotion.tres")
+	player.get_node("Inventory").add_item(test_item)
 	queue_free()

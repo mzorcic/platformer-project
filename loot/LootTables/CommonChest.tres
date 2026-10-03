@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ChestLootTable" format=3 uid="uid://yp3cjm6mhgs7"]
+
+[ext_resource type="Resource" uid="uid://ds1c51dmapbyn" path="res://loot/Core/BasicLootTable.tres" id="1_t0a8l"]
+[ext_resource type="Script" uid="uid://djykuivboy1n2" path="res://loot/Core/ChestLootTable.gd" id="2_xcqat"]
+
+[resource]
+script = ExtResource("2_xcqat")
+loot_table = ExtResource("1_t0a8l")
+metadata/_custom_type_script = "uid://djykuivboy1n2"

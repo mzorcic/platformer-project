@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://bg7li8od7vtt5"]
+
+[ext_resource type="Script" uid="uid://u0bx42277c88" path="res://scripts/DamagePart.gd" id="1_kntvm"]
+[ext_resource type="Texture2D" uid="uid://ckpib3w0jj6dr" path="res://assets/textures/items/healing_potion.png" id="2_euan5"]
+[ext_resource type="Script" uid="uid://bv42whp3l87nv" path="res://scripts/Items/ItemData.gd" id="2_i6nt8"]
+
+[resource]
+script = ExtResource("2_i6nt8")
+item_name = "Healing Potion"
+description = "This potion grants 10HP"
+icon = ExtResource("2_euan5")
+max_stack = 15
+is_usable = true
+healing = 20.0
+metadata/_custom_type_script = "uid://bv42whp3l87nv"

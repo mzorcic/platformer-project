@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="LootTable" format=3 uid="uid://ds1c51dmapbyn"]
+
+[ext_resource type="Script" uid="uid://bv42whp3l87nv" path="res://scripts/Items/ItemData.gd" id="1_ygftw"]
+[ext_resource type="Resource" uid="uid://u3um8a665ekj" path="res://items/Weapons/IronSword.tres" id="2_bmpki"]
+[ext_resource type="Resource" uid="uid://cecwoyqcissh0" path="res://items/Trinkets/RingOfHealth.tres" id="3_2ylkc"]
+[ext_resource type="Script" uid="uid://drbtnf2g00ueo" path="res://loot/Core/LootTable.gd" id="4_7kag4"]
+[ext_resource type="Resource" uid="uid://cyov4mt7pauw8" path="res://items/Weapons/Battleaxe.tres" id="5_pe3s2"]
+[ext_resource type="Resource" uid="uid://bg7li8od7vtt5" path="res://items/Potions/HealingPotion.tres" id="6_tnsgs"]
+
+[resource]
+script = ExtResource("4_7kag4")
+common_items = Array[ExtResource("1_ygftw")]([ExtResource("2_bmpki")])
+uncommon_items = Array[ExtResource("1_ygftw")]([ExtResource("5_pe3s2"), ExtResource("6_tnsgs")])
+rare_items = Array[ExtResource("1_ygftw")]([ExtResource("3_2ylkc")])
+metadata/_custom_type_script = "uid://drbtnf2g00ueo"

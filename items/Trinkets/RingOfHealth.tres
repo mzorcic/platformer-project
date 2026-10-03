@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://cecwoyqcissh0"]
+
+[ext_resource type="Script" uid="uid://u0bx42277c88" path="res://scripts/DamagePart.gd" id="1_ygtgx"]
+[ext_resource type="Texture2D" uid="uid://b66wghvg0luyq" path="res://assets/textures/trinkets/ring_of_health.png" id="2_a31u5"]
+[ext_resource type="Script" uid="uid://bv42whp3l87nv" path="res://scripts/Items/ItemData.gd" id="3_lp0j7"]
+
+[resource]
+script = ExtResource("3_lp0j7")
+item_name = "Ring of Health"
+description = "Common ring aprentice enchanters make to practice enchanting."
+icon = ExtResource("2_a31u5")
+is_stackable = false
+rarity = 1
+equipment_type = 5
+bonus_health = 50.0
+magic_resistance = 5.0
+value = 50
+metadata/_custom_type_script = "uid://bv42whp3l87nv"

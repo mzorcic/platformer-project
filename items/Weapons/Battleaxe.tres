@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://cyov4mt7pauw8"]
+
+[ext_resource type="Script" uid="uid://u0bx42277c88" path="res://scripts/DamagePart.gd" id="1_dp63h"]
+[ext_resource type="Texture2D" uid="uid://dkwoy8fi8dwca" path="res://assets/textures/weapons/battleaxe.png" id="2_kpgsc"]
+[ext_resource type="Script" uid="uid://bv42whp3l87nv" path="res://scripts/Items/ItemData.gd" id="2_uhh08"]
+
+[sub_resource type="Resource" id="Resource_kpgsc"]
+script = ExtResource("1_dp63h")
+amount = 30.0
+metadata/_custom_type_script = "uid://u0bx42277c88"
+
+[resource]
+script = ExtResource("2_uhh08")
+item_name = "Battleaxe"
+description = "A barbaric weapon."
+icon = ExtResource("2_kpgsc")
+is_stackable = false
+max_stack = 1
+rarity = 1
+equipment_type = 2
+damage_parts = Array[ExtResource("1_dp63h")]([SubResource("Resource_kpgsc")])
+value = 60
+metadata/_custom_type_script = "uid://bv42whp3l87nv"

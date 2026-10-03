@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://dejxbo78pr5fl"]
+
+[ext_resource type="Script" uid="uid://00hg7t2sevd5" path="res://scripts/Inventory/player_stats.gd" id="1_vp270"]
+
+[node name="PlayerStats" type="Panel" unique_id=1876773740]
+offset_right = 248.0
+offset_bottom = 598.0
+script = ExtResource("1_vp270")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=931618160]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_right = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="VBoxContainer" unique_id=1965304504]
+layout_mode = 2
+size_flags_vertical = 1
+text = "STATS"
+horizontal_alignment = 1
+
+[node name="HealthLabel" type="Label" parent="VBoxContainer" unique_id=223801819]
+layout_mode = 2
+
+[node name="ManaLabel" type="Label" parent="VBoxContainer" unique_id=1105073784]
+layout_mode = 2
+
+[node name="AttackTitle" type="Label" parent="VBoxContainer" unique_id=368204942]
+layout_mode = 2
+text = "ATTACK"
+
+[node name="DamageLabel" type="Label" parent="VBoxContainer" unique_id=1795947746]
+layout_mode = 2
+
+[node name="ResistanceTitle" type="Label" parent="VBoxContainer" unique_id=156060109]
+layout_mode = 2
+text = "RESISTANCES"
+
+[node name="PhysicalLabel" type="Label" parent="VBoxContainer" unique_id=518694064]
+layout_mode = 2
+
+[node name="FireLabel" type="Label" parent="VBoxContainer" unique_id=1695936512]
+layout_mode = 2
+
+[node name="IceLabel" type="Label" parent="VBoxContainer" unique_id=729329755]
+layout_mode = 2
+
+[node name="LightningLabel" type="Label" parent="VBoxContainer" unique_id=71134382]
+layout_mode = 2
+
+[node name="PoisonLabel" type="Label" parent="VBoxContainer" unique_id=101543555]
+layout_mode = 2
+
+[node name="MagicLabel" type="Label" parent="VBoxContainer" unique_id=345151383]
+layout_mode = 2

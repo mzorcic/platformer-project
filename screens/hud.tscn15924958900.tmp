@@ -14,7 +14,6 @@
 [ext_resource type="Texture2D" uid="uid://co2dxv1fm68la" path="res://assets/customTextures/inventoryIcons/TransparentInventoryIcons/trinketSlotInventoryT.png" id="13_6w6ui"]
 [ext_resource type="PackedScene" uid="uid://bkeau10chh16n" path="res://scripts/Inventory/ItemTooltip.tscn" id="14_86yfm"]
 [ext_resource type="PackedScene" uid="uid://dejxbo78pr5fl" path="res://scripts/Inventory/PlayerStats.tscn" id="14_sd4qo"]
-[ext_resource type="Script" uid="uid://ch7imp5o14h3l" path="res://loot/Chest/ChestSlot.gd" id="15_sd4qo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6b0l1"]
 bg_color = Color(0.20871013, 0.20871016, 0.20871004, 1)
@@ -40,7 +39,6 @@ bg_color = Color(0.101960786, 0.61960787, 0.6039216, 1)
 load_path = "res://.godot/imported/healthBar3.0.png-ed1a5870178bc8e77839bb6827f0028f.ctex"
 
 [sub_resource type="LabelSettings" id="LabelSettings_5lrfx"]
-font_size = 20
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_flmph"]
 shader = ExtResource("2_muel6")
@@ -153,7 +151,6 @@ texture = ExtResource("2_crvme")
 expand_mode = 1
 
 [node name="InteractionPrompt" type="Label" parent="HUD" unique_id=1821039628]
-visible = false
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -449,60 +446,3 @@ offset_left = 1572.0
 offset_top = 239.0
 offset_right = 1820.0
 offset_bottom = 837.0
-
-[node name="ChestPanel" type="Panel" parent="." unique_id=798717521]
-visible = false
-anchors_preset = -1
-anchor_left = 0.14375
-anchor_top = 0.2939815
-anchor_right = 0.19427083
-anchor_bottom = 0.7060185
-grow_vertical = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="ChestBackground" type="TextureRect" parent="ChestPanel" unique_id=1349667022]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-stretch_mode = 1
-
-[node name="ChestGrid" type="VBoxContainer" parent="ChestPanel/ChestBackground" unique_id=1433598656]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -32.0
-offset_top = -202.0
-offset_right = 32.0
-offset_bottom = 202.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ChestSlot1" parent="ChestPanel/ChestBackground/ChestGrid" unique_id=1288593740 instance=ExtResource("1_o3vs4")]
-layout_mode = 2
-script = ExtResource("15_sd4qo")
-
-[node name="ChestSlot2" parent="ChestPanel/ChestBackground/ChestGrid" unique_id=376413884 instance=ExtResource("1_o3vs4")]
-layout_mode = 2
-script = ExtResource("15_sd4qo")
-
-[node name="ChestSlot3" parent="ChestPanel/ChestBackground/ChestGrid" unique_id=886489728 instance=ExtResource("1_o3vs4")]
-layout_mode = 2
-script = ExtResource("15_sd4qo")
-
-[node name="ChestSlot4" parent="ChestPanel/ChestBackground/ChestGrid" unique_id=551925008 instance=ExtResource("1_o3vs4")]
-layout_mode = 2
-script = ExtResource("15_sd4qo")
-
-[node name="ChestSlot5" parent="ChestPanel/ChestBackground/ChestGrid" unique_id=33363827 instance=ExtResource("1_o3vs4")]
-layout_mode = 2
-script = ExtResource("15_sd4qo")
-
-[node name="ChestSlot6" parent="ChestPanel/ChestBackground/ChestGrid" unique_id=1896239891 instance=ExtResource("1_o3vs4")]
-layout_mode = 2
-script = ExtResource("15_sd4qo")

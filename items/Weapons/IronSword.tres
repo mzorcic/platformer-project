@@ -21,6 +21,8 @@ item_name = "Iron Sword"
 description = "Common Iron Sword
 From Germany"
 icon = ExtResource("1_gnx6v")
+is_stackable = false
+max_stack = 1
 equipment_type = 2
 damage_parts = Array[ExtResource("1_ggpj0")]([SubResource("Resource_n8jd0"), SubResource("Resource_q605b")])
 value = 20

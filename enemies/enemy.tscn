@@ -58,6 +58,5 @@ script = ExtResource("3_orwns")
 
 [node name="ResistanceSystem" type="Node" parent="." unique_id=201224849]
 script = ExtResource("4_07tka")
-base_fire_resistance = 20.0
 
 [connection signal="died" from="HealthSystem" to="." method="_on_died"]

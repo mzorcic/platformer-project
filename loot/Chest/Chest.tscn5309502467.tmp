@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://q8nr4lud5ius"]
+
+[ext_resource type="Script" uid="uid://b8gbw4qgj6lmb" path="res://loot/chest/Chest.gd" id="1_bcc15"]
+[ext_resource type="Texture2D" uid="uid://dp8l0ekipm16n" path="res://assets/textures/projectiles/bullet.png" id="1_g0l03"]
+[ext_resource type="Script" uid="uid://bv42whp3l87nv" path="res://scripts/Items/ItemData.gd" id="2_n02nt"]
+[ext_resource type="Script" uid="uid://elft7pprumsr" path="res://loot/chest/ChestInventory.gd" id="3_7jeux"]
+[ext_resource type="Resource" uid="uid://u3um8a665ekj" path="res://items/IronSword.tres" id="3_u6bwp"]
+[ext_resource type="Resource" uid="uid://cecwoyqcissh0" path="res://items/RingOfHealth.tres" id="4_m7hr6"]
+[ext_resource type="Resource" uid="uid://bg7li8od7vtt5" path="res://items/Potions/HealingPotion.tres" id="5_nf6k7"]
+[ext_resource type="Script" uid="uid://drbtnf2g00ueo" path="res://loot/LootTable.gd" id="6_nm13q"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_5lrfx"]
+rough = true
+
+[sub_resource type="Resource" id="Resource_uqnpq"]
+script = ExtResource("6_nm13q")
+common_items = Array[ExtResource("2_n02nt")]([ExtResource("3_u6bwp"), ExtResource("4_m7hr6"), ExtResource("5_nf6k7")])
+metadata/_custom_type_script = "uid://drbtnf2g00ueo"
+
+[sub_resource type="GDScript" id="GDScript_1pryr"]
+script/source = "
+extends Resource
+
+@export_category(\"Loot Table\")
+@export var loot_table: LootTable
+
+@export_category(\"Common Loot\")
+@export_range(0, 10) var guaranteed_common_items: int = 3
+
+@export_category(\"Bonus Loot Chances\")
+@export_range(0.0, 1.0) var uncommon_chance: float = 0.20
+@export_range(0.0, 1.0) var rare_chance: float = 0.05
+
+@export_category(\"Bonus Loot\")
+@export var uncommon_items: Array[ItemData] = []
+@export var rare_items: Array[ItemData] = []
+"
+
+[sub_resource type="Resource" id="Resource_3ff1m"]
+script = SubResource("GDScript_1pryr")
+loot_table = SubResource("Resource_uqnpq")
+guaranteed_common_items = 1
+uncommon_chance = 0.0
+rare_chance = 0.0
+metadata/_custom_type_script = "uid://djykuivboy1n2"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5lrfx"]
+size = Vector2(30, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_flmph"]
+size = Vector2(56, 46)
+
+[node name="Chest" type="StaticBody2D" unique_id=670004767]
+physics_material_override = SubResource("PhysicsMaterial_5lrfx")
+script = ExtResource("1_bcc15")
+loot_table = SubResource("Resource_3ff1m")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=742244007]
+scale = Vector2(30, 20)
+texture = ExtResource("1_g0l03")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1383694838]
+shape = SubResource("RectangleShape2D_5lrfx")
+
+[node name="InteractionArea" type="Area2D" parent="." unique_id=2142128360]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" unique_id=1198085443]
+shape = SubResource("RectangleShape2D_flmph")
+
+[node name="ChestInventory" type="Node" parent="." unique_id=2033997139]
+script = ExtResource("3_7jeux")
+
+[connection signal="body_entered" from="InteractionArea" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="InteractionArea" to="." method="_on_body_exited"]

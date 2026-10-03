@@ -26,18 +26,14 @@ func _physics_process(delta: float) -> void:
 			current_mana = min(current_mana + 10.0, max_mana)
 			mana_changed.emit(current_mana, max_mana)
 			
-			print("regen mana")
-			
 			mana_regen_timer = MANA_REGEN_COOLDOWN
 
 
 func use_mana(amount: float) -> bool:
 	if current_mana < amount:
-		print("Not enough mana!")
 		return false
 	
 	current_mana -= amount
-	print("Mana used")
 	mana_regen_timer = MANA_REGEN_COOLDOWN
 	
 	mana_changed.emit(current_mana, max_mana)
@@ -45,14 +41,16 @@ func use_mana(amount: float) -> bool:
 	return true
 
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("test_key"):
-		use_mana(20)
+func regen_mana(amount:float) -> void:
+	if current_mana < max_mana:
+		if current_mana + amount <= max_mana:
+			current_mana += amount
+		elif current_mana + amount > max_mana:
+			current_mana = max_mana
+		mana_changed.emit(current_mana, max_mana)
 
 
 func update_equipment_bonuses() -> void:
-
-	var old_max_mana := max_mana
 
 	max_mana = base_max_mana
 
@@ -63,10 +61,3 @@ func update_equipment_bonuses() -> void:
 		current_mana = max_mana
 
 	mana_changed.emit(current_mana, max_mana)
-
-	print(
-		"Mana changed: ",
-		old_max_mana,
-		" -> ",
-		max_mana
-	)

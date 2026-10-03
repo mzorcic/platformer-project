@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dhbu266y7rp5t"]
 
 [ext_resource type="Script" uid="uid://dqab5gjmi12t5" path="res://scripts/Inventory/InventorySlot.gd" id="1_pkxv4"]
-[ext_resource type="Texture2D" uid="uid://c7l3ni8t4wrm0" path="res://assets/customTextures/inventoryIcons/emptySlotInventory.png" id="1_xtjid"]
+[ext_resource type="Texture2D" uid="uid://n57jnf1x6ddf" path="res://assets/customTextures/inventoryIcons/TransparentInventoryIcons/emptySlotInventoryT.png" id="1_xtjid"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ggpj0"]
 texture = ExtResource("1_xtjid")
@@ -9,7 +9,8 @@ texture = ExtResource("1_xtjid")
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_77d8y"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_5lrfx"]
-font_size = 9
+font_size = 15
+font_color = Color(0.06469653, 0.06469653, 0.06469653, 1)
 
 [node name="InventorySlot" type="Panel" unique_id=1878209895]
 custom_minimum_size = Vector2(64, 64)
@@ -34,13 +35,14 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("CompressedTexture2D_77d8y")
+expand_mode = 1
 
 [node name="StackAmount" type="Label" parent="." unique_id=1776730691]
 layout_mode = 0
-offset_left = 5.0
-offset_top = 48.0
-offset_right = 24.0
-offset_bottom = 61.0
+offset_left = 6.0
+offset_top = 41.0
+offset_right = 25.0
+offset_bottom = 54.0
 label_settings = SubResource("LabelSettings_5lrfx")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
