@@ -23,8 +23,6 @@ position = Vector2(-47, -110)
 [node name="EntranceBottom" type="Marker2D" parent="." unique_id=1853434956]
 position = Vector2(78, 158)
 
-[node name="PlayerStart" type="Marker2D" parent="." unique_id=1410454841]
-
 [node name="Player" parent="." unique_id=1662639462 instance=ExtResource("4_b66ou")]
 
 [node name="HUD" parent="." unique_id=91535387 instance=ExtResource("5_fhlrb")]
