@@ -151,19 +151,13 @@ func generate_dungeon() -> void:
 		start_position,
 		DungeonRoom.RoomType.START
 		)
-
-
+	
 	if start_room == null:
-
-		print("ERROR: Could not create START room.")
-
 		return
-
-
+	
 	start_room.room_type = DungeonRoom.RoomType.START
-
+	
 	main_path.append(start_position)
-
 
 	# ==================================================
 	# 2. CREATE BOSS PATH
@@ -468,10 +462,7 @@ func generate_dungeon() -> void:
 # CREATE ROOM
 # ==================================================
 
-func create_room(
-	grid_position: Vector2i,
-	room_type: DungeonRoom.RoomType = DungeonRoom.RoomType.COMBAT
-) -> DungeonRoom:
+func create_room(grid_position: Vector2i, room_type: DungeonRoom.RoomType = DungeonRoom.RoomType.COMBAT) -> DungeonRoom:
 
 	if occupied.has(grid_position):
 		return null

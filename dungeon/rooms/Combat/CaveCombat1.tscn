@@ -15,7 +15,7 @@ tile_set = ExtResource("2_pxyhw")
 tile_set = ExtResource("3_oojbm")
 
 [node name="EntranceBottom" type="Marker2D" parent="." unique_id=2031278428]
-position = Vector2(0, 180)
+position = Vector2(1, 62)
 
 [node name="EntranceTop" type="Marker2D" parent="." unique_id=833583922]
-position = Vector2(0, -180)
+position = Vector2(-29, -270)

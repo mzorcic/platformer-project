@@ -1,33 +1,9 @@
 [gd_scene format=3 uid="uid://dmkyporubikft"]
 
 [ext_resource type="Script" uid="uid://75d6jnme6hsv" path="res://dungeon/scripts/DungeonGenerator.gd" id="1_oqut0"]
-[ext_resource type="PackedScene" uid="uid://blqulatjqg8qa" path="res://characters/player.tscn" id="2_axyd5"]
-[ext_resource type="PackedScene" uid="uid://da6pfh3ytxf5m" path="res://enemies/enemy.tscn" id="2_k0ggn"]
-[ext_resource type="PackedScene" uid="uid://cvps82f8yjpm2" path="res://screens/hud.tscn" id="4_75yoc"]
-[ext_resource type="PackedScene" uid="uid://q8nr4lud5ius" path="res://loot/Chest/Chest.tscn" id="4_ads7n"]
-[ext_resource type="Resource" uid="uid://yp3cjm6mhgs7" path="res://loot/LootTables/CommonChest.tres" id="5_ads7n"]
 [ext_resource type="PackedScene" uid="uid://6is1aqo4tp82" path="res://dungeon/Dungeon.tscn" id="7_8bdmj"]
 
 [node name="TestScene" type="Node2D" unique_id=635202067]
 script = ExtResource("1_oqut0")
 
 [node name="Dungeon" parent="." unique_id=1404260784 instance=ExtResource("7_8bdmj")]
-
-[node name="Player" parent="." unique_id=1662639462 instance=ExtResource("2_axyd5")]
-position = Vector2(-36, 87)
-
-[node name="Enemy" parent="." unique_id=651092779 instance=ExtResource("2_k0ggn")]
-position = Vector2(161, 223)
-
-[node name="HUD" parent="." unique_id=91535387 instance=ExtResource("4_75yoc")]
-
-[node name="Enemy2" parent="." unique_id=1626851990 instance=ExtResource("2_k0ggn")]
-position = Vector2(149, 176)
-
-[node name="Chest" parent="." unique_id=670004767 instance=ExtResource("4_ads7n")]
-position = Vector2(468, 280)
-loot_table = ExtResource("5_ads7n")
-
-[node name="Chest2" parent="." unique_id=443460901 instance=ExtResource("4_ads7n")]
-position = Vector2(604, 158)
-loot_table = ExtResource("5_ads7n")
