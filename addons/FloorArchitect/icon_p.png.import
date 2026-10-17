@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2e5bu51xbc03"
-path="res://.godot/imported/blackBar.png-1a36c6c31e78dc20565398197e60a7ee.ctex"
+uid="uid://bjo0q6c4tjcv8"
+path="res://.godot/imported/icon_p.png-680059b1b96688c91b265d2d07a96b09.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/customTextures/HealthBar/blackBar.png"
-dest_files=["res://.godot/imported/blackBar.png-1a36c6c31e78dc20565398197e60a7ee.ctex"]
+source_file="res://addons/FloorArchitect/icon_p.png"
+dest_files=["res://.godot/imported/icon_p.png-680059b1b96688c91b265d2d07a96b09.ctex"]
 
 [params]
 

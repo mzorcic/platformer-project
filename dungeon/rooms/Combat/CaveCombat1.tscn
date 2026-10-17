@@ -4,6 +4,9 @@
 [ext_resource type="TileSet" uid="uid://cas85nuf2nej4" path="res://tilemaps/CaveTileSet.tres" id="2_pxyhw"]
 [ext_resource type="TileSet" uid="uid://cxwltdtmr3r8x" path="res://tilemaps/WallTileSet.tres" id="3_oojbm"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5lrfx"]
+size = Vector2(240, 318)
+
 [node name="DungeonRoom" type="Node2D" unique_id=1786853010]
 script = ExtResource("1_d3evl")
 
@@ -19,3 +22,13 @@ position = Vector2(1, 62)
 
 [node name="EntranceTop" type="Marker2D" parent="." unique_id=833583922]
 position = Vector2(-29, -270)
+
+[node name="EntranceLeft" type="Marker2D" parent="." unique_id=1820417415]
+position = Vector2(-141, -111)
+
+[node name="EntranceRight" type="Marker2D" parent="." unique_id=2087167443]
+position = Vector2(110, -77)
+
+[node name="RoomBounds" type="CollisionShape2D" parent="." unique_id=1592872547]
+position = Vector2(-16, -104)
+shape = SubResource("RectangleShape2D_5lrfx")

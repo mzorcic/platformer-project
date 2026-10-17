@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dmkyporubikft"]
+
+[ext_resource type="Script" uid="uid://75d6jnme6hsv" path="res://dungeon/scripts/DungeonGenerator.gd" id="1_oqut0"]
+[ext_resource type="PackedScene" uid="uid://6is1aqo4tp82" path="res://dungeon/Dungeon.tscn" id="7_8bdmj"]
+
+[node name="TestScene" type="Node2D" unique_id=635202067]
+script = ExtResource("1_oqut0")
+
+[node name="Dungeon" parent="." unique_id=1404260784 instance=ExtResource("7_8bdmj")]

@@ -1,8 +1,11 @@
+
 class_name DungeonGenerator
 extends Node2D
 
 
-const ROOM_SCENE := preload("res://dungeon/rooms/Room.tscn")
+# ==================================================
+# ROOM SCENES
+# ==================================================
 
 const START_ROOMS: Array[PackedScene] = [
 	preload("res://dungeon/rooms/Start/CaveStart1.tscn")
@@ -13,945 +16,377 @@ const COMBAT_ROOMS: Array[PackedScene] = [
 ]
 
 const EXPLORATION_ROOMS: Array[PackedScene] = [
-	
+	preload("res://dungeon/rooms/Exploration/CaveExploration1.tscn")
 ]
 
 const REWARD_ROOMS: Array[PackedScene] = [
-	
+	# preload("res://dungeon/rooms/Reward/CaveReward1.tscn")
 ]
 
 const SPECIAL_ROOMS: Array[PackedScene] = [
-	
+	# preload("res://dungeon/rooms/Special/CaveSpecial1.tscn")
 ]
 
 const BOSS_ROOMS: Array[PackedScene] = [
-	
+	preload("res://dungeon/rooms/Boss/CaveBoss1.tscn")
 ]
 
+
 # ==================================================
-# DUNGEON SETTINGS
+# SETTINGS
 # ==================================================
 
-@export_category("Dungeon Size")
-
-@export_range(2, 100, 1)
-var total_rooms: int = 20
-
-
-@export_category("Boss")
+@export_category("Boss Path")
 
 @export_range(2, 50, 1)
-var boss_rooms: int = 6
+var rooms_to_boss: int = 5
 
-
-@export_category("Special Rooms")
+@export_category("Room Types")
 
 @export_range(0, 20, 1)
 var reward_rooms: int = 2
 
-
 @export_range(0, 20, 1)
 var exploration_rooms: int = 2
 
+@export_category("Generation")
 
-@export_range(0, 20, 1)
-var special_rooms: int = 1
+@export_range(1, 1000, 1)
+var generation_attempts: int = 100
 
+@export var generate_on_ready: bool = true
 
-@export_category("Room Layout")
-
-@export var room_spacing: Vector2 = Vector2(700, 420)
+@export_range(0, 1000, 1)
+var player_z_index: int = 100
 
 
 # ==================================================
-# VARIABLES
+# DATA
 # ==================================================
 
 var occupied: Dictionary = {}
+var main_path: Array[DungeonRoom] = []
+var side_room_: Array[DungeonRoom] = []
 
-var generated_rooms: Array[DungeonRoom] = []
-
-var main_path: Array[Vector2i] = []
-
-var side_room_positions: Array[Vector2i] = []
+var start_room: DungeonRoom
 
 
 # ==================================================
-# START
+# INITIALIZATION
 # ==================================================
 
 func _ready() -> void:
-
-	randomize()
-
-	generate_dungeon()
+	if generate_on_ready:
+		generate_dungeon()
 
 
 # ==================================================
-# GENERATE DUNGEON
+# GENERATE DUNGEON WITH RETRIES
 # ==================================================
 
 func generate_dungeon() -> void:
-
-	occupied.clear()
-
-	generated_rooms.clear()
-
-	main_path.clear()
-
-	side_room_positions.clear()
-
-
-	# Remove old rooms
-	for child in get_children():
-
-		if child is DungeonRoom:
-
-			child.queue_free()
-
-
-	# ==================================================
-	# CHECK SETTINGS
-	# ==================================================
-
-	var minimum_required_rooms: int = boss_rooms
-
-
-	if total_rooms < minimum_required_rooms:
-
-		total_rooms = minimum_required_rooms
-
-
-	var special_room_count: int = (
-		reward_rooms
-		+ exploration_rooms
-		+ special_rooms
-	)
-
-
-	if special_room_count > total_rooms - minimum_required_rooms:
-
-		print("WARNING: Too many special rooms for this dungeon size.")
-
-		print(
-			"Reduce Reward/Exploration/Special rooms "
-			+ "or increase Total Rooms."
-		)
-
+	clear_dungeon()
+	
+	if START_ROOMS.is_empty() or BOSS_ROOMS.is_empty():
+		push_error("DungeonGenerator: Start or boss scenes are missing.")
 		return
 
-
-	# ==================================================
-	# 1. CREATE START
-	# ==================================================
-
-	var start_position: Vector2i = Vector2i.ZERO
-
-	var start_room: DungeonRoom = create_room(
-		start_position,
-		DungeonRoom.RoomType.START
-		)
-	
-	if start_room == null:
+	if COMBAT_ROOMS.is_empty():
+		push_error("DungeonGenerator: Combat room scenes are missing.")
 		return
-	
-	start_room.room_type = DungeonRoom.RoomType.START
-	
-	main_path.append(start_position)
 
-	# ==================================================
-	# 2. CREATE BOSS PATH
-	# ==================================================
+	var middle_count: int = rooms_to_boss - 2
+	var room_types: Array[String] = create_middle_room_types(
+		middle_count
+	)
+	room_types.append("boss")
 
-	var current_position: Vector2i = start_position
+	for attempt in range(generation_attempts):
+		clear_dungeon()
 
+		var starts: Array[PackedScene] = START_ROOMS.duplicate()
+		starts.shuffle()
 
-	for i in range(boss_rooms - 1):
+		for scene in starts:
+			var candidate_start := scene.instantiate() as DungeonRoom
 
-		var possible_positions: Array[Vector2i] = []
-
-		for direction in get_directions():
-
-			var candidate_position: Vector2i = (
-				current_position + direction
-			)
-
-			if occupied.has(candidate_position):
+			if candidate_start == null:
+				push_error("Start scene root must be a DungeonRoom.")
 				continue
 
-			possible_positions.append(candidate_position)
+			add_child(candidate_start)
+			candidate_start.position = Vector2.ZERO
 
-		if possible_positions.is_empty():
-			print("ERROR: Could not create boss path.")
-			return
-
-		var new_position: Vector2i = (
-			possible_positions.pick_random()
-		)
-
-		var room_type := DungeonRoom.RoomType.COMBAT
-
-		if i == boss_rooms - 2:
-			room_type = DungeonRoom.RoomType.BOSS
-
-		var new_room := create_room(
-			new_position,
-			room_type
-		)
-
-		if new_room == null:
-			return
-
-		main_path.append(new_position)
-		current_position = new_position
-
-
-	# ==================================================
-	# 3. ASSIGN MAIN PATH
-	# ==================================================
-
-	# START
-	var start_path_room: DungeonRoom = (
-		occupied[main_path[0]]
-	)
-
-	start_path_room.room_type = (
-		DungeonRoom.RoomType.START
-	)
-
-
-	# COMBAT
-	for i in range(1, main_path.size() - 1):
-
-		var path_position: Vector2i = main_path[i]
-
-		var path_room: DungeonRoom = (
-			occupied[path_position]
-		)
-
-		path_room.room_type = (
-			DungeonRoom.RoomType.COMBAT
-		)
-
-
-	# BOSS
-	var boss_position: Vector2i = (
-		main_path[main_path.size() - 1]
-	)
-
-	var boss_room: DungeonRoom = (
-		occupied[boss_position]
-	)
-
-	boss_room.room_type = (
-		DungeonRoom.RoomType.BOSS
-	)
-
-
-	# ==================================================
-# 4. CREATE SIDE ROOMS
-# ==================================================
-
-	while generated_rooms.size() < total_rooms:
-
-		var possible_positions: Array[Vector2i] = []
-
-
-		for existing_position in occupied.keys():
-
-			var grid_position: Vector2i = existing_position
-
-
-			for direction in get_directions():
-
-				var new_position: Vector2i = (
-					grid_position + direction
+			if not has_valid_room_bounds(candidate_start):
+				candidate_start.free()
+				push_error(
+					"Every room needs a RoomBounds RectangleShape2D."
 				)
-
-
-				if occupied.has(new_position):
-					continue
-
-
-				if possible_positions.has(new_position):
-					continue
-
-
-				possible_positions.append(new_position)
-
-
-		if possible_positions.is_empty():
-
-			print("ERROR: No more positions available.")
-			break
-
-
-		possible_positions.shuffle()
-
-
-		var created := false
-
-
-		for new_room_position in possible_positions:
-
-		# Decide what type this side room should actually be.
-			var side_room_type: DungeonRoom.RoomType = (
-				DungeonRoom.RoomType.COMBAT
-			)
-
-
-			var side_index: int = side_room_positions.size()
-
-
-			if side_index < reward_rooms:
-
-				side_room_type = (
-					DungeonRoom.RoomType.REWARD
-				)
-
-			elif side_index < reward_rooms + exploration_rooms:
-
-				side_room_type = (
-					DungeonRoom.RoomType.EXPLORATION
-				)
-
-			elif side_index < (
-				reward_rooms
-				+ exploration_rooms
-				+ special_rooms
-			):
-
-				side_room_type = (
-					DungeonRoom.RoomType.SPECIAL
-				)
-
-
-			var new_room: DungeonRoom = create_room(
-				new_room_position,
-				side_room_type
-			)
-
-
-			if new_room == null:
 				continue
 
-
-			side_room_positions.append(
-				new_room_position
-			)
-
-			created = true
-			break
-
-
-		if not created:
-
-			print(
-				"ERROR: Could not find a compatible room "
-				+ "for any available side position."
-			)
-
-			break
-
-
-	# ==================================================
-	# 5. ASSIGN REWARD ROOMS
-	# ==================================================
-
-	var side_index: int = 0
-
-
-	for i in range(reward_rooms):
-
-		if side_index >= side_room_positions.size():
-
-			break
-
-
-		var reward_position: Vector2i = (
-			side_room_positions[side_index]
-		)
-
-
-		var reward_room: DungeonRoom = (
-			occupied[reward_position]
-		)
-
-
-		reward_room.room_type = (
-			DungeonRoom.RoomType.REWARD
-		)
-
-
-		side_index += 1
-
-
-	# ==================================================
-	# 6. ASSIGN EXPLORATION ROOMS
-	# ==================================================
-
-	for i in range(exploration_rooms):
-
-		if side_index >= side_room_positions.size():
-
-			break
-
-
-		var exploration_position: Vector2i = (
-			side_room_positions[side_index]
-		)
-
-
-		var exploration_room: DungeonRoom = (
-			occupied[exploration_position]
-		)
-
-
-		exploration_room.room_type = (
-			DungeonRoom.RoomType.EXPLORATION
-		)
-
-
-		side_index += 1
-
-
-	# ==================================================
-	# 7. ASSIGN SPECIAL ROOMS
-	# ==================================================
-
-	for i in range(special_rooms):
-
-		if side_index >= side_room_positions.size():
-
-			break
-
-
-		var special_position: Vector2i = (
-			side_room_positions[side_index]
-		)
-
-
-		var special_room: DungeonRoom = (
-			occupied[special_position]
-		)
-
-
-		special_room.room_type = (
-			DungeonRoom.RoomType.SPECIAL
-		)
-
-
-		side_index += 1
-
-
-	# ==================================================
-	# 8. CONNECT ROOMS
-	# ==================================================
-
-	connect_rooms()
-
-
-	# ==================================================
-	# 9. PRINT RESULT
-	# ==================================================
-
-	print_dungeon_info()
-
-
-# ==================================================
-# CREATE ROOM
-# ==================================================
-
-func create_room(grid_position: Vector2i, room_type: DungeonRoom.RoomType = DungeonRoom.RoomType.COMBAT) -> DungeonRoom:
-
-	if occupied.has(grid_position):
-		return null
-
-
-	var required_directions: Array[Vector2i] = []
-
-	# Find existing neighboring rooms.
-	for direction in get_directions():
-
-		var neighbor_position: Vector2i = (
-			grid_position + direction
-		)
-
-		if occupied.has(neighbor_position):
-			required_directions.append(direction)
-
-
-	# Find a room scene that has all required entrances.
-	var room_scene: PackedScene = get_compatible_room_scene(
-		room_type,
-		required_directions
-	)
-
-
-	if room_scene == null:
-
-		print(
-			"ERROR: Could not find compatible ",
-			get_room_type_name(room_type),
-			" room for position ",
-			grid_position,
-			" requiring ",
-			required_directions
-		)
-
-		return null
-
-
-	var room: DungeonRoom = room_scene.instantiate() as DungeonRoom
-
-
-	if room == null:
-
-		print("ERROR: Room scene is not a DungeonRoom.")
-
-		return null
-
-
-	add_child(room)
-
-
-	# First room has no neighbors.
-	if required_directions.is_empty():
-
-		room.global_position = Vector2.ZERO
-
-	else:
-
-		# Position the room using the first neighboring room.
-		var direction: Vector2i = required_directions[0]
-
-		var neighbor_position: Vector2i = (
-			grid_position + direction
-		)
-
-		var neighbor: DungeonRoom = (
-			occupied[neighbor_position]
-		)
-
-		var neighbor_marker: Marker2D = (
-			neighbor.get_marker(direction)
-		)
-
-		var room_marker: Marker2D = (
-			room.get_marker(-direction)
-		)
-
-
-		if neighbor_marker == null:
-
-			print(
-				"ERROR: Neighbor ",
-				neighbor.name,
-				" has no marker for ",
-				direction
-			)
-
-			room.queue_free()
-			return null
-
-
-		if room_marker == null:
-
-			print(
-				"ERROR: Room ",
-				room.name,
-				" has no marker for ",
-				-direction
-			)
-
-			room.queue_free()
-			return null
-
-
-		# Move the entire room so the two markers overlap.
-		var offset: Vector2 = (
-			neighbor_marker.global_position
-			- room_marker.global_position
-		)
-
-		room.global_position += offset
-
-
-	# Make sure ALL required connections actually line up.
-	for direction in required_directions:
-
-		var neighbor_position: Vector2i = (
-			grid_position + direction
-		)
-
-		var neighbor: DungeonRoom = (
-			occupied[neighbor_position]
-		)
-
-		var neighbor_marker: Marker2D = (
-			neighbor.get_marker(direction)
-		)
-
-		var room_marker: Marker2D = (
-			room.get_marker(-direction)
-		)
-
-
-		if neighbor_marker == null or room_marker == null:
-
-			print(
-				"ERROR: Invalid connection between ",
-				neighbor.name,
-				" and ",
-				room.name
-			)
-
-			room.queue_free()
-			return null
-
-
-		var distance: float = (
-			neighbor_marker.global_position
-			.distance_to(room_marker.global_position)
-		)
-
-
-		if distance > 1.0:
-
-			print(
-				"ERROR: Markers don't line up! Distance: ",
-				distance
-			)
-
-			room.queue_free()
-			return null
-
-
-	# Store room.
-	room.room_type = room_type
-
-	occupied[grid_position] = room
-	generated_rooms.append(room)
-
-
-	return room
-
-
-# ==================================================
-# CONNECT ROOMS
-# ==================================================
-
-func connect_rooms() -> void:
-
-	for grid_position in occupied.keys():
-
-		var room: DungeonRoom = occupied[grid_position]
-
-
-		for direction in get_directions():
-
-			var neighbor_position: Vector2i = (
-				grid_position + direction
-			)
-
-
-			if not occupied.has(neighbor_position):
-				continue
-
-
-			var neighbor: DungeonRoom = (
-				occupied[neighbor_position]
-			)
-
-
-			var room_marker: Marker2D = (
-				room.get_marker(direction)
-			)
-
-			var neighbor_marker: Marker2D = (
-				neighbor.get_marker(-direction)
-			)
-
-
-			if room_marker == null:
-				continue
-
-			if neighbor_marker == null:
-				continue
-
-
-			var distance: float = (
-				room_marker.global_position
-				.distance_to(
-					neighbor_marker.global_position
-				)
-			)
-
-
-			if distance <= 1.0:
-
-				room.set_connection(direction)
-
-			else:
-
+			start_room = candidate_start
+			main_path.append(start_room)
+			occupied[start_room] = true
+
+			if build_path(start_room, "", room_types, 0):
 				print(
-					"WARNING: Rooms are not connected: ",
-					room.name,
-					" -> ",
-					neighbor.name,
-					" distance = ",
-					distance
+					"Dungeon generated successfully on attempt ",
+					attempt + 1,
+					". Rooms: ",
+					main_path.size()
 				)
+				return
+
+			clear_dungeon()
+
+	print(
+		"Could not generate a valid dungeon after ",
+		generation_attempts,
+		" attempts. Check room entrances, bounds, and room scenes."
+	)
 
 
 # ==================================================
-# DIRECTIONS
+# BUILD CONNECTED PATH
 # ==================================================
 
-func get_directions() -> Array[Vector2i]:
+func build_path(
+	current_room: DungeonRoom,
+	incoming_entrance: String,
+	room_types: Array[String],
+	room_index: int
+) -> bool:
 
+	if room_index >= room_types.size():
+		return true
+
+	var exits: Array[String] = []
+
+	for entrance_name in get_entrance_names():
+		if entrance_name == incoming_entrance:
+			continue
+
+		if get_entrance(current_room, entrance_name) != null:
+			exits.append(entrance_name)
+
+	exits.shuffle()
+
+	var scenes: Array[PackedScene] = get_room_list(
+		room_types[room_index]
+	)
+
+	if scenes.is_empty():
+		return false
+
+	for exit_name in exits:
+		var exit_marker := get_entrance(current_room, exit_name)
+
+		if exit_marker == null:
+			continue
+
+		var target_position := exit_marker.global_position
+		var opposite_name := get_opposite_entrance(exit_name)
+
+		var shuffled_scenes: Array[PackedScene] = scenes.duplicate()
+		shuffled_scenes.shuffle()
+
+		for scene in shuffled_scenes:
+			var candidate := scene.instantiate() as DungeonRoom
+
+			if candidate == null:
+				continue
+
+			add_child(candidate)
+
+			if not has_valid_room_bounds(candidate):
+				candidate.free()
+				continue
+
+			var entrance := get_entrance(candidate, opposite_name)
+
+			if entrance == null:
+				candidate.free()
+				continue
+
+			# Align the two entrance markers exactly.
+			candidate.global_position += (
+				target_position - entrance.global_position
+			)
+
+			# Reject this room if it overlaps any placed room.
+			if overlaps_existing_room(candidate):
+				candidate.free()
+				continue
+
+			occupied[candidate] = true
+			main_path.append(candidate)
+
+			if build_path(
+				candidate,
+				opposite_name,
+				room_types,
+				room_index + 1
+			):
+				return true
+
+			# This branch cannot reach the boss.
+			main_path.erase(candidate)
+			occupied.erase(candidate)
+			candidate.free()
+
+	return false
+
+
+# ==================================================
+# ROOM BOUNDS
+# ==================================================
+
+func get_room_bounds(room: DungeonRoom) -> Rect2:
+	var bounds := room.find_child(
+		"RoomBounds",
+		true,
+		false
+	) as CollisionShape2D
+
+	if bounds == null:
+		return Rect2()
+
+	var rectangle := bounds.shape as RectangleShape2D
+
+	if rectangle == null:
+		return Rect2()
+
+	# Assumes rooms are not rotated.
+	var size := rectangle.size * bounds.global_scale.abs()
+	var center := bounds.global_position
+
+	return Rect2(center - size / 2.0, size)
+
+
+func has_valid_room_bounds(room: DungeonRoom) -> bool:
+	var bounds := room.find_child(
+		"RoomBounds",
+		true,
+		false
+	) as CollisionShape2D
+
+	if bounds == null:
+		return false
+
+	var rectangle := bounds.shape as RectangleShape2D
+
+	if rectangle == null:
+		return false
+
+	return rectangle.size.x > 0.0 and rectangle.size.y > 0.0
+
+
+func overlaps_existing_room(candidate: DungeonRoom) -> bool:
+	var candidate_bounds := get_room_bounds(candidate)
+
+	for existing in occupied.keys():
+		var room := existing as DungeonRoom
+
+		if room == null or not is_instance_valid(room):
+			continue
+
+		var existing_bounds := get_room_bounds(room)
+
+		# Edge-to-edge contact is allowed.
+		if candidate_bounds.intersects(existing_bounds):
+			return true
+
+	return false
+
+
+# ==================================================
+# ENTRANCE MARKERS
+# ==================================================
+
+func get_entrance_names() -> Array[String]:
 	return [
-		Vector2i.UP,
-		Vector2i.DOWN,
-		Vector2i.LEFT,
-		Vector2i.RIGHT
+		"EntranceTop",
+		"EntranceBottom",
+		"EntranceLeft",
+		"EntranceRight"
 	]
 
 
-# ==================================================
-# DEBUG OUTPUT
-# ==================================================
-
-func print_dungeon_info() -> void:
-
-	print("")
-
-	print("==============================")
-
-	print("DUNGEON GENERATED")
-
-	print("==============================")
+func get_entrance(room: DungeonRoom, entrance_name: String) -> Marker2D:
+	var marker = room.find_child(entrance_name, true, false) as Marker2D
+	return marker
 
 
-	print(
-		"TOTAL ROOMS: ",
-		generated_rooms.size()
-	)
 
+func get_opposite_entrance(entrance_name: String) -> String:
+	match entrance_name:
+		"EntranceTop":
+			return "EntranceBottom"
+		"EntranceBottom":
+			return "EntranceTop"
+		"EntranceLeft":
+			return "EntranceRight"
+		"EntranceRight":
+			return "EntranceLeft"
 
-	print(
-		"BOSS DISTANCE: ",
-		boss_rooms
-	)
-
-
-	print(
-		"MAIN PATH ROOMS: ",
-		main_path.size()
-	)
-
-
-	print(
-		"SIDE ROOMS: ",
-		side_room_positions.size()
-	)
-
-
-	print("")
-
-
-	for grid_position in occupied.keys():
-
-		var room: DungeonRoom = (
-			occupied[grid_position]
-		)
-
-
-		var location: String = ""
-
-
-		if main_path.has(grid_position):
-
-			location = " [MAIN PATH]"
-
-		elif side_room_positions.has(grid_position):
-
-			location = " [SIDE ROOM]"
-
-
-		print(
-			grid_position,
-			" -> ",
-			get_room_type_name(room.room_type),
-			location
-		)
-
-
-	print("==============================")
-
-	print("")
+	return ""
 
 
 # ==================================================
-# ROOM TYPE NAME
+# ROOM TYPES
 # ==================================================
 
-func get_room_type_name(room_type) -> String:
+func create_middle_room_types(
+	middle_count: int
+) -> Array[String]:
+	var types: Array[String] = []
 
+	var rewards_to_place: int = mini(reward_rooms, middle_count)
+	var exploration_to_place: int = mini(
+		exploration_rooms,
+		middle_count - rewards_to_place
+	)
+
+	for i in range(rewards_to_place):
+		if not REWARD_ROOMS.is_empty():
+			types.append("reward")
+
+	for i in range(exploration_to_place):
+		if not EXPLORATION_ROOMS.is_empty():
+			types.append("exploration")
+
+	while types.size() < middle_count:
+		types.append("combat")
+
+	types.shuffle()
+	return types
+
+
+func get_room_list(room_type: String) -> Array[PackedScene]:
 	match room_type:
-
-		DungeonRoom.RoomType.START:
-
-			return "START"
-
-
-		DungeonRoom.RoomType.COMBAT:
-
-			return "COMBAT"
-
-
-		DungeonRoom.RoomType.EXPLORATION:
-
-			return "EXPLORATION"
-
-
-		DungeonRoom.RoomType.REWARD:
-
-			return "REWARD"
-
-
-		DungeonRoom.RoomType.SPECIAL:
-
-			return "SPECIAL"
-
-
-		DungeonRoom.RoomType.BOSS:
-
-			return "BOSS"
-
-
-	return "UNKNOWN"
-
-
-func get_random_room_scene(room_type: DungeonRoom.RoomType) -> PackedScene:
-
-	var room_list: Array[PackedScene] = []
-
-	match room_type:
-
-		DungeonRoom.RoomType.COMBAT:
-			room_list = COMBAT_ROOMS
-
-		DungeonRoom.RoomType.EXPLORATION:
-			room_list = EXPLORATION_ROOMS
-
-		DungeonRoom.RoomType.REWARD:
-			room_list = REWARD_ROOMS
-
-		DungeonRoom.RoomType.SPECIAL:
-			room_list = SPECIAL_ROOMS
-
-		DungeonRoom.RoomType.BOSS:
-			room_list = BOSS_ROOMS
-
-		DungeonRoom.RoomType.START:
-			room_list = START_ROOMS
-
-	if room_list.is_empty():
-		print("ERROR: No room scenes available for type!")
-		return null
-
-	return room_list.pick_random()
-
-
-func get_compatible_room_scene(
-	room_type: DungeonRoom.RoomType,
-	required_directions: Array[Vector2i]
-) -> PackedScene:
-
-	var room_list: Array[PackedScene] = []
-
-
-	match room_type:
-
-		DungeonRoom.RoomType.START:
-			room_list = START_ROOMS
-
-		DungeonRoom.RoomType.COMBAT:
-			room_list = COMBAT_ROOMS
-
-		DungeonRoom.RoomType.EXPLORATION:
-			room_list = EXPLORATION_ROOMS
-
-		DungeonRoom.RoomType.REWARD:
-			room_list = REWARD_ROOMS
-
-		DungeonRoom.RoomType.SPECIAL:
-			room_list = SPECIAL_ROOMS
-
-		DungeonRoom.RoomType.BOSS:
-			room_list = BOSS_ROOMS
-
-
-	if room_list.is_empty():
-
-		print(
-			"ERROR: No room scenes available for ",
-			get_room_type_name(room_type)
-		)
-
-		return null
-
-
-	var compatible_rooms: Array[PackedScene] = []
-
-
-	for scene in room_list:
-
-		var test_room: DungeonRoom = (
-			scene.instantiate() as DungeonRoom
-		)
-
-
-		if test_room == null:
-			continue
-
-
-		var compatible := true
-
-
-		for direction in required_directions:
-
-			# The new room needs the opposite entrance.
-			var required_marker_direction: Vector2i = -direction
-
-
-			if not test_room.has_marker(
-				required_marker_direction
-			):
-
-				compatible = false
-				break
-
-
-		test_room.free()
-
-
-		if compatible:
-
-			compatible_rooms.append(scene)
-
-
-	if compatible_rooms.is_empty():
-
-		print(
-			"ERROR: No compatible ",
-			get_room_type_name(room_type),
-			" rooms found for directions: ",
-			required_directions
-		)
-
-		return null
-
-
-	return compatible_rooms.pick_random()
+		"reward":
+			return REWARD_ROOMS
+		"exploration":
+			return EXPLORATION_ROOMS
+		"special":
+			return SPECIAL_ROOMS
+		"boss":
+			return BOSS_ROOMS
+		"combat":
+			return COMBAT_ROOMS
+
+	return COMBAT_ROOMS
+
+
+# ==================================================
+# CLEAR DUNGEON
+# ==================================================
+
+func clear_dungeon() -> void:
+	for child in get_children():
+		child.free()
+
+	occupied.clear()
+	main_path.clear()
+	side_room_.clear()
+	start_room = null

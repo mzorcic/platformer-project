@@ -6,6 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://blqulatjqg8qa" path="res://characters/player.tscn" id="4_b66ou"]
 [ext_resource type="PackedScene" uid="uid://cvps82f8yjpm2" path="res://screens/hud.tscn" id="5_fhlrb"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5lrfx"]
+size = Vector2(311, 257)
+
 [node name="DungeonRoom" type="Node2D" unique_id=1569363197]
 script = ExtResource("1_6mxmc")
 
@@ -23,6 +26,12 @@ position = Vector2(-47, -110)
 [node name="EntranceBottom" type="Marker2D" parent="." unique_id=1853434956]
 position = Vector2(78, 158)
 
-[node name="Player" parent="." unique_id=1662639462 instance=ExtResource("4_b66ou")]
+[node name="PlayerSpawn" type="Marker2D" parent="." unique_id=1406876335]
+
+[node name="RoomBounds" type="CollisionShape2D" parent="." unique_id=1210431147]
+position = Vector2(16, 23)
+shape = SubResource("RectangleShape2D_5lrfx")
 
 [node name="HUD" parent="." unique_id=91535387 instance=ExtResource("5_fhlrb")]
+
+[node name="Player" parent="." unique_id=1662639462 instance=ExtResource("4_b66ou")]
