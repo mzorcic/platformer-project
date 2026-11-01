@@ -4,7 +4,7 @@
 [ext_resource type="TileSet" uid="uid://dl6kw8y4psij7" path="res://tilemaps/CaveTileSet1.tres" id="2_xedfm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5lrfx"]
-size = Vector2(482, 378)
+size = Vector2(474, 378)
 
 [node name="CaveBoss1" type="Node2D" unique_id=797039647]
 script = ExtResource("1_ac4sm")
@@ -17,5 +17,8 @@ tile_set = ExtResource("2_xedfm")
 position = Vector2(-81, 176)
 
 [node name="RoomBounds" type="CollisionShape2D" parent="." unique_id=829751548]
-position = Vector2(15, -20)
+position = Vector2(16, -17)
 shape = SubResource("RectangleShape2D_5lrfx")
+
+[node name="EntranceRight" type="Marker2D" parent="." unique_id=621905873]
+position = Vector2(255, -33)

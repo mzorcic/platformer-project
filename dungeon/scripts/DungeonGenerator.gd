@@ -12,7 +12,8 @@ const START_ROOMS: Array[PackedScene] = [
 ]
 
 const COMBAT_ROOMS: Array[PackedScene] = [
-	preload("res://dungeon/rooms/Combat/CaveCombat1.tscn")
+	preload("res://dungeon/rooms/Combat/CaveCombat1.tscn"),
+	preload("res://dungeon/rooms/Combat/CaveCombat2.tscn")
 ]
 
 const EXPLORATION_ROOMS: Array[PackedScene] = [

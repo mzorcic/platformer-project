@@ -7,4 +7,6 @@
 script = ExtResource("1_oqut0")
 
 [node name="Dungeon" parent="." unique_id=1404260784 instance=ExtResource("7_8bdmj")]
-generation_attempts = 1000
+reward_rooms = 0
+exploration_rooms = 0
+generate_on_ready = false
